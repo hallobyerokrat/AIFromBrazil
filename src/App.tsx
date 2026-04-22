@@ -1,0 +1,654 @@
+import { motion, useMotionValue, useScroll, useSpring } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+
+function DotGrid() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    let raf: number
+    let t = 0
+
+    const resize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    resize()
+    window.addEventListener('resize', resize)
+
+    const SPACING = 36
+    const BASE_OPACITY = 0.15
+    const PULSE_SPEED = 0.0003
+
+    const draw = () => {
+      if (!canvas || !ctx) return
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const cols = Math.ceil(canvas.width / SPACING) + 1
+      const rows = Math.ceil(canvas.height / SPACING) + 1
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const wave = Math.sin(c * 0.4 + r * 0.4 - t) * 0.5 + 0.5
+          const opacity = BASE_OPACITY * (0.3 + 0.7 * wave)
+          const radius = 0.8 + wave * 0.5
+          ctx.beginPath()
+          ctx.arc(c * SPACING, r * SPACING, radius, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(59,130,246,${opacity})`
+          ctx.fill()
+        }
+      }
+      t += PULSE_SPEED * 16
+      raf = requestAnimationFrame(draw)
+    }
+
+    draw()
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', resize)
+    }
+  }, [])
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      className="fixed inset-0 w-screen h-screen pointer-events-none -z-10"
+    />
+  )
+}
+
+const EASE = [0.25, 0.1, 0.25, 1] as const
+const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
+const fadeIn  = { initial: { opacity: 0 },        whileInView: { opacity: 1 },        viewport: { once: true } }
+
+export default function App() {
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const springX = useSpring(mouseX, { stiffness: 100, damping: 22 })
+  const springY = useSpring(mouseY, { stiffness: 100, damping: 22 })
+  const { scrollY } = useScroll()
+  const [scrolled, setScrolled] = useState(false)
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => { mouseX.set(e.clientX); mouseY.set(e.clientY) }
+    window.addEventListener('mousemove', move)
+    return () => window.removeEventListener('mousemove', move)
+  }, [mouseX, mouseY])
+
+  useEffect(() => scrollY.on('change', v => setScrolled(v > 60)), [scrollY])
+
+  return (
+    <div className="relative text-white min-h-screen overflow-x-hidden">
+      <DotGrid />
+
+      {/* Gradient orbs */}
+      <div aria-hidden="true" className="pointer-events-none fixed top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-[#2563EB] opacity-[0.05] blur-[140px] -z-20" />
+      <div aria-hidden="true" className="pointer-events-none fixed bottom-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full bg-[#1D4ED8] opacity-[0.04] blur-[120px] -z-20" />
+
+      {/* Cursor glow */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none fixed w-[380px] h-[380px] rounded-full bg-[#2563EB] opacity-[0.08] blur-[90px] -z-20"
+        style={{ left: springX, top: springY, translateX: '-50%', translateY: '-50%' }}
+      />
+
+      {/* ── NAV ─────────────────────────────────────────────────── */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 pointer-events-none">
+        <motion.nav
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          aria-label="Main navigation"
+          className={[
+            'pointer-events-auto inline-flex items-center gap-1 rounded-full border px-2 py-2',
+            'bg-[#18181B]/80 backdrop-blur-xl border-zinc-800 transition-shadow duration-300',
+            scrolled ? 'shadow-xl shadow-black/40' : '',
+          ].join(' ')}
+        >
+          <a
+            href="#top"
+            aria-label="AIFromBrazil — back to top"
+            className="flex items-center justify-center w-8 h-8 rounded-full bg-[#2563EB] text-white text-[10px] font-bold tracking-wide [font-family:var(--font-heading)] hover:bg-[#1D4ED8] transition-colors duration-200"
+          >
+            AFB
+          </a>
+
+          <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
+
+          {[
+            { label: 'About',    href: '#about'    },
+            { label: 'Work',     href: '#work'     },
+            { label: 'Services', href: '#services' },
+            { label: 'Contact',  href: '#contact'  },
+          ].map(({ label, href }) => (
+            <a
+              key={label}
+              href={href}
+              className="text-xs sm:text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200"
+            >
+              {label}
+            </a>
+          ))}
+
+          <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
+
+          <a
+            href="#contact"
+            className="text-xs sm:text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200 [font-family:var(--font-heading)]"
+          >
+            Say hi ↗
+          </a>
+        </motion.nav>
+      </div>
+
+      {/* ── HEADER VIDEO ────────────────────────────────────────── */}
+      <section id="top" className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden mb-20">
+        <video
+          src="/wall-header.mp4"
+          autoPlay muted loop playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Gradient: darken top (for nav legibility) and fade to bg at bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-[#09090B]" />
+
+        {/* Brand names row */}
+        <div className="absolute top-20 left-8 md:left-14 right-8 md:right-14 flex items-start justify-between">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.25, ease: EASE }}
+            className="flex flex-col gap-1.5"
+          >
+            <span
+              className="text-4xl md:text-6xl font-bold tracking-tight leading-none [font-family:var(--font-heading)] select-none"
+              style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #93C5FD 45%, #3B82F6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              AIFromBrazil
+            </span>
+            <span className="text-[11px] text-white/40 uppercase tracking-[0.35em] pl-0.5 [font-family:var(--font-heading)]">
+              AI Tools & Digital Systems
+            </span>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.35, ease: EASE }}
+            className="flex flex-col gap-1.5 items-end"
+          >
+            <span
+              className="text-4xl md:text-6xl font-bold tracking-tight leading-none [font-family:var(--font-heading)] select-none"
+              style={{
+                background: 'linear-gradient(135deg, #ffffff 0%, #93C5FD 45%, #3B82F6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              BuiltByNikolay
+            </span>
+            <span className="text-[11px] text-white/40 uppercase tracking-[0.35em] pr-0.5 [font-family:var(--font-heading)]">
+              Designed & Developed
+            </span>
+          </motion.div>
+        </div>
+
+      </section>
+
+      {/* ── HERO ────────────────────────────────────────────────── */}
+      <section className="max-w-4xl mx-auto mb-40 px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: EASE }}
+          className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 mb-10 text-xs text-zinc-400 select-none"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
+          Available for new projects
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, delay: 0.1, ease: EASE }}
+          className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.06] mb-6 text-white [font-family:var(--font-heading)]"
+        >
+          I build AI tools &<br />
+          <span className="text-[#3B82F6]">systems that ship.</span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.7 }}
+          className="text-lg md:text-xl text-zinc-400 mb-10 max-w-xl mx-auto leading-relaxed"
+        >
+          From AI-powered web apps to autonomous agents — I build
+          digital products that save time, generate revenue, and actually work.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45, duration: 0.6, ease: EASE }}
+          className="flex flex-col sm:flex-row justify-center items-center gap-3"
+        >
+          <a
+            href="#contact"
+            className="rounded-full px-8 py-3.5 text-base font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
+          >
+            Work with me ↗
+          </a>
+          <a
+            href="#work"
+            className="rounded-full px-8 py-3.5 text-base font-medium border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white active:border-zinc-400 transition-colors duration-200"
+          >
+            See my work
+          </a>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.75, duration: 0.6 }}
+          aria-hidden="true"
+          className="mt-14 flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-[11px] text-zinc-700 uppercase tracking-[0.2em]"
+        >
+          {['AI Tools', 'Web Apps', 'Automation', 'AI Agents', 'Delivered fast'].map((tag, i, arr) => (
+            <span key={tag} className="flex items-center gap-6">
+              {tag}
+              {i < arr.length - 1 && <span className="w-1 h-1 rounded-full bg-zinc-800 -ml-3" />}
+            </span>
+          ))}
+        </motion.div>
+      </section>
+
+      {/* ── ABOUT ───────────────────────────────────────────────── */}
+      <section id="about" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">About</motion.p>
+        <div className="grid md:grid-cols-[1fr_260px] gap-14 items-start">
+          <div>
+            <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-white [font-family:var(--font-heading)]">
+              I build digital products,<br />tools & systems.
+            </motion.h2>
+            <motion.p {...fadeUp} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} className="text-lg text-zinc-400 leading-relaxed mb-8 max-w-xl">
+              My work sits at the intersection of AI and product — building tools that save time, automate workflows, and generate real value. I move fast, ship working products, and focus on outcomes over process.
+            </motion.p>
+            <motion.blockquote {...fadeUp} transition={{ duration: 0.5, delay: 0.2, ease: EASE }} className="relative pl-5 border-l-2 border-[#2563EB]">
+              <p className="text-lg text-white/80 font-medium [font-family:var(--font-heading)] leading-relaxed">
+                "Not focused on content or trends — focused on building things that work."
+              </p>
+            </motion.blockquote>
+          </div>
+
+          <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.15, ease: EASE }} className="w-full aspect-[3/4] bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden">
+            <img src="/me.jpg" alt="AIFromBrazil" className="w-full h-full object-cover object-center" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── RESULTS ─────────────────────────────────────────────── */}
+      <section aria-label="Key numbers" className="max-w-6xl mx-auto mb-40 px-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800/80 rounded-3xl overflow-hidden">
+          {[
+            { value: '3+',    label: 'Products shipped'    },
+            { value: '100%',  label: 'AI-powered builds'   },
+            { value: '1 day', label: 'Avg. delivery time'  },
+            { value: '0→1',   label: 'Every single time'   },
+          ].map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
+              className="bg-[#18181B] px-8 py-10 flex flex-col gap-2"
+            >
+              <span className="text-4xl md:text-5xl font-bold text-white [font-family:var(--font-heading)]">{stat.value}</span>
+              <span className="text-sm text-zinc-500">{stat.label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── WORK ────────────────────────────────────────────────── */}
+      <section id="work" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Selected work</motion.p>
+        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
+          Things I've built
+        </motion.h2>
+
+        {/* Featured card */}
+        <motion.article
+          {...fadeUp}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="group relative rounded-3xl overflow-hidden mb-6 cursor-pointer"
+          style={{ background: 'linear-gradient(140deg,#18181B 0%,#1c1c23 100%)', border: '1px solid rgba(37,99,235,0.22)' }}
+        >
+          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />
+          <div aria-hidden="true" className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: 'radial-gradient(700px circle at 40% 0%,rgba(37,99,235,0.07),transparent 55%)' }} />
+
+          <div className="relative grid md:grid-cols-[1fr_1.1fr]">
+            <div className="p-10 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">Featured project</span>
+                  <span className="flex items-center gap-1.5 text-[10px] text-zinc-500 uppercase tracking-[0.15em]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />Live
+                  </span>
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 [font-family:var(--font-heading)] group-hover:text-[#60A5FA] transition-colors duration-300">Byerokrat</h3>
+                <p className="text-zinc-400 leading-relaxed mb-7 max-w-sm">AI tax assistant for German freelancers & self-employed — answers tax questions in plain language, instantly.</p>
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Problem</p>
+                    <p className="text-zinc-300">Freelancers waste hours on tax research, deadlines, and forms.</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Solution</p>
+                    <p className="text-zinc-300">AI chat that answers tax questions instantly in plain language.</p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-8 text-[11px] text-zinc-600 font-mono">React · Supabase · Claude API</p>
+            </div>
+
+            <div className="relative bg-zinc-900/50 border-l border-zinc-800/50 min-h-[280px] overflow-hidden">
+              <img src="/byerokrat.png" alt="Byerokrat app screenshot" className="w-full h-full object-cover object-top" />
+            </div>
+          </div>
+        </motion.article>
+
+        {/* Secondary cards */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            { title: 'Céu de Brincar', desc: 'Author website for Ana Souza de Magalhães — books, bio, portfolio.', problem: 'Authors need a professional web presence but lack technical skills.', solution: 'Built with AI tools, delivered same day.', tech: 'Next.js · Tailwind · Framer Motion', status: 'Live — client', statusColor: 'bg-emerald-400', img: '/ceu-de-brincar.png' },
+            { title: 'Assilee TV', desc: 'AI-powered e-commerce & content platform.', problem: 'TODO: describe the problem', solution: 'TODO: describe the solution', tech: 'TODO', status: 'In progress', statusColor: 'bg-amber-400', img: '/assileetv.webp' },
+          ].map((p, i) => (
+            <motion.article
+              key={p.title}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
+              className="group relative bg-[#18181B] border border-zinc-800 hover:border-zinc-700 rounded-3xl p-6 overflow-hidden flex flex-col transition-colors duration-300 cursor-pointer"
+            >
+              <div aria-hidden="true" className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-white/[0.015] to-transparent transition-opacity duration-300 pointer-events-none" />
+              <div className="relative aspect-video bg-zinc-900 border border-zinc-800/60 rounded-2xl mb-5 overflow-hidden">
+                <img src={p.img} alt={`${p.title} screenshot`} className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+              </div>
+              <div className="relative flex items-center justify-between mb-2">
+                <h3 className="text-xl font-semibold text-white group-hover:text-zinc-100 transition-colors duration-200 [font-family:var(--font-heading)]">{p.title}</h3>
+                <span className="flex items-center gap-1.5 text-[10px] text-zinc-500 uppercase tracking-[0.12em]">
+                  <span className={`w-1.5 h-1.5 rounded-full ${p.statusColor}`} aria-hidden="true" />{p.status}
+                </span>
+              </div>
+              <p className="relative text-zinc-500 text-sm mb-5 leading-relaxed">{p.desc}</p>
+              <div className="relative space-y-3 text-xs flex-1">
+                <div>
+                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.12em] mb-1 [font-family:var(--font-heading)]">Problem</p>
+                  <p className="text-zinc-500 leading-relaxed">{p.problem}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.12em] mb-1 [font-family:var(--font-heading)]">Solution</p>
+                  <p className="text-zinc-500 leading-relaxed">{p.solution}</p>
+                </div>
+              </div>
+              <p className="relative mt-4 text-[10px] font-mono text-zinc-700">{p.tech}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      {/* ── PROCESS ─────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto mb-40 px-6">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Process</motion.p>
+        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
+          How I work
+        </motion.h2>
+        <div className="grid md:grid-cols-4 gap-4">
+          {[
+            { step: '01', title: 'Understand', desc: 'We talk through your problem, goal, and constraints. No fluff — just clarity on what needs to be built.' },
+            { step: '02', title: 'Plan', desc: 'I map out the solution, pick the right tools, and define a clear scope. You know what to expect.' },
+            { step: '03', title: 'Build', desc: 'I build fast using AI-assisted development. First working version in days, not weeks.' },
+            { step: '04', title: 'Ship & iterate', desc: "We launch, review, and improve. No disappearing after delivery — I'm here for what comes next." },
+          ].map((item, i) => (
+            <motion.div
+              key={item.step}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: i * 0.09, ease: EASE }}
+              className="relative bg-[#18181B] border border-zinc-800/80 rounded-3xl p-7 overflow-hidden hover:border-zinc-700 transition-colors duration-300"
+            >
+              <span className="text-5xl font-bold [font-family:var(--font-heading)] block mb-5 bg-gradient-to-b from-zinc-700 to-zinc-800/60 bg-clip-text text-transparent select-none">{item.step}</span>
+              <h3 className="text-base font-semibold text-white mb-2 [font-family:var(--font-heading)]">{item.title}</h3>
+              <p className="text-zinc-500 text-sm leading-relaxed">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── SERVICES ────────────────────────────────────────────── */}
+      <section id="services" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Offerings</motion.p>
+        <div className="grid md:grid-cols-2 gap-10 items-end mb-14">
+          <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-white [font-family:var(--font-heading)]">
+            Services
+          </motion.h2>
+          <motion.p {...fadeIn} transition={{ duration: 0.6, delay: 0.1 }} className="text-lg text-zinc-400 leading-relaxed">
+            I build digital products and AI systems for businesses, freelancers, and creators who want to move fast and get real results.
+          </motion.p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-x-10 mb-14">
+          {[
+            { name: 'AI Tool Development',               desc: 'Custom AI-powered tools built around your workflow'             },
+            { name: 'Website & Web App Creation',        desc: 'From landing pages to full-stack web applications'              },
+            { name: 'Automation Systems & Workflows',    desc: 'End-to-end workflow automation with n8n, Make, and AI'          },
+            { name: 'Autonomous AI Agents',              desc: 'Agents that handle leads, emails, and repetitive tasks 24/7'    },
+            { name: 'AI Phone Assistants & Chatbots',   desc: 'Voice AI and chatbots for customer interactions'                },
+            { name: 'Lead Qualification & Email Auto',  desc: 'Automated systems that qualify and follow up on leads'          },
+            { name: 'AI Video & Ad Production',          desc: 'AI-driven video content with Remotion and ElevenLabs'           },
+            { name: '1-on-1 AI Coaching',                desc: 'Learn to use AI tools effectively for your business'            },
+          ].map((service, i) => (
+            <motion.div
+              key={service.name}
+              {...fadeUp}
+              transition={{ duration: 0.35, delay: i * 0.04, ease: EASE }}
+              className="group py-4 border-b border-zinc-800/80 flex justify-between items-center gap-4 cursor-pointer"
+            >
+              <div>
+                <p className="text-sm text-zinc-200 group-hover:text-white transition-colors duration-200 font-medium">{service.name}</p>
+                <p className="text-xs text-zinc-600 group-hover:text-zinc-500 transition-colors duration-200 mt-0.5">{service.desc}</p>
+              </div>
+              <span aria-hidden="true" className="text-zinc-700 group-hover:text-[#3B82F6] transition-colors duration-200 text-base shrink-0">→</span>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5">
+          <motion.div {...fadeUp} transition={{ duration: 0.5, ease: EASE }} className="bg-[#18181B] border border-zinc-800 rounded-3xl p-8">
+            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-5 [font-family:var(--font-heading)]">Who I work with</p>
+            <ul className="space-y-3">
+              {[
+                'Freelancers & self-employed who need smarter tools',
+                'Small businesses that want to automate repetitive work',
+                'Creators & authors who need a digital presence',
+                'Companies looking to integrate AI into workflows',
+              ].map(item => (
+                <li key={item} className="flex items-start gap-2 text-zinc-400 text-sm">
+                  <span aria-hidden="true" className="text-[#3B82F6] mt-0.5 shrink-0">–</span>{item}
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} className="bg-[#2563EB]/8 border border-[#2563EB]/20 rounded-3xl p-8 flex flex-col">
+            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-4 [font-family:var(--font-heading)]">Ready to start?</p>
+            <p className="text-zinc-300 text-sm leading-relaxed mb-8 flex-1">Most projects start within a few days. Tell me what you need and I'll get back to you within 24 hours.</p>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 self-start rounded-full px-6 py-3 bg-[#2563EB] text-white text-sm font-semibold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
+            >
+              Get in touch ↗
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── STACK ───────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto mb-40 px-6">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Stack</motion.p>
+        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
+          Tools & Skills
+        </motion.h2>
+        <div className="grid md:grid-cols-2 gap-5">
+          {[
+            { title: 'Core Skills',         items: ['AI Tools & Agent Development', 'Web Apps & Digital Products', 'Automation Systems & Workflows', 'Rapid prototyping & shipping'] },
+            { title: 'Tools & Technologies', items: ['Claude / Claude Code', 'Remotion · ElevenLabs · CapCut', 'Vapi · Retell AI · Voiceflow · n8n', 'JavaScript · React · TypeScript'] },
+            { title: "What I'm good at",    items: ['Turning ideas into working products fast', 'Building systems instead of one-off solutions', 'Creating automated revenue-generating flows', 'Teaching non-technical people to use AI effectively'] },
+            { title: 'Currently exploring', items: ['Autonomous AI Agents for business', 'Voice & Phone AI with Vapi & Retell', 'AI-driven video & ad production', 'Scaling digital products to new markets'] },
+          ].map((block, i) => {
+            const isActive = block.title === 'Currently exploring'
+            return (
+              <motion.div
+                key={block.title}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
+                className={[
+                  'rounded-3xl p-7 border relative overflow-hidden transition-colors duration-300',
+                  isActive ? 'bg-[#18181B] border-[#2563EB]/25' : 'bg-[#18181B] border-zinc-800/80',
+                ].join(' ')}
+              >
+                {isActive && <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />}
+                <p className={`text-[11px] uppercase tracking-[0.2em] mb-4 [font-family:var(--font-heading)] ${isActive ? 'text-[#3B82F6]' : 'text-zinc-600'}`}>{block.title}</p>
+                <ul className="space-y-2.5">
+                  {block.items.map(item => (
+                    <li key={item} className={`flex items-start gap-2 text-sm ${isActive ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                      <span aria-hidden="true" className={`mt-0.5 shrink-0 ${isActive ? 'text-[#3B82F6]' : 'text-zinc-700'}`}>–</span>{item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            )
+          })}
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto mb-40 px-6">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Social proof</motion.p>
+        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
+          What clients say
+        </motion.h2>
+        <div className="grid md:grid-cols-3 gap-5">
+          {[
+            { quote: 'TODO: Add a real client quote here.', name: 'Client Name', role: 'Role · Company' },
+            { quote: 'TODO: "He delivered the website in one day — exactly what we needed."', name: 'Client Name', role: 'Role · Company' },
+            { quote: 'TODO: Even a short quote from a collaborator or beta user works well.', name: 'Client Name', role: 'Role · Company' },
+          ].map((t, i) => (
+            <motion.figure
+              key={i}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
+              className="bg-[#18181B] border border-dashed border-zinc-800/60 rounded-3xl p-7 flex flex-col justify-between gap-5 opacity-50 hover:opacity-80 focus-within:opacity-80 transition-opacity duration-300"
+            >
+              <blockquote>
+                <p className="text-zinc-400 text-sm leading-relaxed italic">"{t.quote}"</p>
+              </blockquote>
+              <figcaption className="flex items-center gap-3">
+                <div aria-hidden="true" className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-[9px] text-zinc-600 uppercase shrink-0">Pic</div>
+                <div>
+                  <p className="text-sm font-medium text-white [font-family:var(--font-heading)]">{t.name}</p>
+                  <p className="text-xs text-zinc-600">{t.role}</p>
+                </div>
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FAQ ─────────────────────────────────────────────────── */}
+      <section className="max-w-2xl mx-auto mb-40 px-6">
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">FAQ</motion.p>
+        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
+          Common questions
+        </motion.h2>
+        <div className="space-y-2">
+          {[
+            { q: 'How fast can you deliver?', a: 'Most projects are scoped and started within 1–3 days. Simple tools or landing pages can ship the same day. Larger systems take 1–2 weeks.' },
+            { q: 'Do I need a technical background to work with you?', a: 'No. I translate technical complexity into plain language. You tell me the problem — I handle everything else.' },
+            { q: 'What does a project typically cost?', a: 'TODO: Add your pricing. E.g. "Simple tools start at €X. Full web apps from €Y. AI agents are scoped per project."' },
+            { q: 'Can I hire you for ongoing work?', a: 'Yes — I take on retainer arrangements for ongoing builds, maintenance, and iteration. Let\'s talk about what makes sense for your situation.' },
+            { q: 'What if I just have an idea and no spec?', a: "That's fine — most projects start that way. We'll clarify the idea together and I'll help you figure out what to build first." },
+          ].map((item, i) => (
+            <motion.details
+              key={i}
+              {...fadeUp}
+              transition={{ duration: 0.35, delay: i * 0.05, ease: EASE }}
+              className="group bg-[#18181B] border border-zinc-800 rounded-2xl overflow-hidden"
+            >
+              <summary className="flex justify-between items-center px-6 py-5 cursor-pointer list-none text-white text-sm font-medium [font-family:var(--font-heading)] hover:text-[#60A5FA] transition-colors duration-200 select-none">
+                {item.q}
+                <span aria-hidden="true" className="faq-icon text-zinc-600 group-open:rotate-45 transition-transform duration-200 text-xl leading-none ml-4 shrink-0">+</span>
+              </summary>
+              <p className="px-6 pb-5 text-zinc-400 text-sm leading-relaxed">{item.a}</p>
+            </motion.details>
+          ))}
+        </div>
+      </section>
+
+      {/* ── CONTACT ─────────────────────────────────────────────── */}
+      <section id="contact" className="max-w-4xl mx-auto px-6 scroll-mt-28">
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="relative rounded-3xl overflow-hidden text-center"
+          style={{ background: 'linear-gradient(140deg,#18181B 0%,#1c1c23 100%)', border: '1px solid rgba(37,99,235,0.2)' }}
+        >
+          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
+          <div className="px-10 py-16 md:py-20">
+            <p className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Contact</p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-5 text-white [font-family:var(--font-heading)]">
+              Let's build something.
+            </h2>
+            <p className="text-lg text-zinc-400 mb-10 max-w-sm mx-auto">
+              Have a project in mind? I respond within 24 hours.
+            </p>
+            <a
+              href="mailto:dnwayne97@gmail.com"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-8 py-3.5 bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
+            >
+              dnwayne97@gmail.com ↗
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── FOOTER ──────────────────────────────────────────────── */}
+      <footer className="max-w-6xl mx-auto mt-20 mb-8 px-6 py-8 border-t border-zinc-800/50">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-5">
+          <div className="flex items-center gap-3">
+            <span aria-hidden="true" className="w-7 h-7 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-[10px] font-bold [font-family:var(--font-heading)] select-none">AFB</span>
+            <span className="text-zinc-500 text-sm [font-family:var(--font-heading)]">AIFromBrazil</span>
+          </div>
+
+          <nav aria-label="Social links" className="flex items-center gap-5 text-sm text-zinc-600">
+            {/* TODO: replace # with real URLs */}
+            <a href="#" className="hover:text-zinc-300 transition-colors duration-200">Twitter / X</a>
+            <a href="#" className="hover:text-zinc-300 transition-colors duration-200">LinkedIn</a>
+            <a href="#" className="hover:text-zinc-300 transition-colors duration-200">GitHub</a>
+          </nav>
+
+          <div className="flex items-center gap-2 text-xs text-zinc-600">
+            <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>Available for projects</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
+}
