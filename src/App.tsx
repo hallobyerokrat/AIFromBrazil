@@ -646,35 +646,62 @@ export default function App() {
           Tools & Skills
         </motion.h2>
         <div className="grid md:grid-cols-2 gap-5">
-          {[
-            { title: 'Core Skills',         items: ['AI Tools & Agent Development', 'Web Apps & Digital Products', 'Automation Systems & Workflows', 'Rapid prototyping & shipping'] },
-            { title: 'Tools & Technologies', items: ['Claude / Claude Code', 'Remotion · ElevenLabs · CapCut', 'Vapi · Retell AI · Voiceflow · n8n', 'JavaScript · React · TypeScript'] },
-            { title: "What I'm good at",    items: ['Turning ideas into working products fast', 'Building systems instead of one-off solutions', 'Creating automated revenue-generating flows', 'Teaching non-technical people to use AI effectively'] },
-            { title: 'Currently exploring', items: ['Autonomous AI Agents for business', 'Voice & Phone AI with Vapi & Retell', 'AI-driven video & ad production', 'Scaling digital products to new markets'] },
-          ].map((block, i) => {
-            const isActive = block.title === 'Currently exploring'
-            return (
-              <motion.div
-                key={block.title}
-                {...fadeUp}
-                transition={{ duration: 0.5, delay: i * 0.07, ease: EASE }}
-                className={[
-                  'rounded-3xl p-7 border relative overflow-hidden transition-colors duration-300',
-                  isActive ? 'bg-[#18181B] border-[#2563EB]/25' : 'bg-[#18181B] border-zinc-800/80',
-                ].join(' ')}
-              >
-                {isActive && <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />}
-                <p className={`text-[11px] uppercase tracking-[0.2em] mb-4 [font-family:var(--font-heading)] ${isActive ? 'text-[#3B82F6]' : 'text-zinc-600'}`}>{block.title}</p>
-                <ul className="space-y-2.5">
-                  {block.items.map(item => (
-                    <li key={item} className={`flex items-start gap-2 text-sm ${isActive ? 'text-zinc-300' : 'text-zinc-500'}`}>
-                      <span aria-hidden="true" className={`mt-0.5 shrink-0 ${isActive ? 'text-[#3B82F6]' : 'text-zinc-700'}`}>–</span>{item}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            )
-          })}
+          {/* Core Skills */}
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.5, ease: EASE }}
+            className="rounded-3xl p-8 border bg-[#18181B] border-zinc-800/80 relative overflow-hidden"
+          >
+            <p className="text-[11px] text-zinc-600 uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">Core Skills</p>
+            <ul className="space-y-0">
+              {[
+                { label: 'AI Tools & Agent Development',  sub: 'Custom AI systems, autonomous agents, Claude API' },
+                { label: 'Web Apps & Digital Products',   sub: 'Landing pages to full-stack applications' },
+                { label: 'Automation & Workflows',        sub: 'n8n, Make, API integrations, end-to-end pipelines' },
+                { label: 'Rapid Prototyping & Shipping',  sub: 'From idea to working product in days, not weeks' },
+              ].map((skill, i) => (
+                <li key={skill.label} className="flex items-start gap-4 py-4 border-b border-zinc-800/60 last:border-0 last:pb-0 first:pt-0">
+                  <span className="text-[13px] font-bold text-[#2563EB] shrink-0 mt-0.5 [font-family:var(--font-heading)]">{String(i + 1).padStart(2, '0')}</span>
+                  <div>
+                    <p className="text-sm font-semibold text-white [font-family:var(--font-heading)] leading-snug">{skill.label}</p>
+                    <p className="text-xs text-zinc-600 mt-0.5 leading-relaxed">{skill.sub}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Tech Stack */}
+          <motion.div
+            {...fadeUp}
+            transition={{ duration: 0.5, delay: 0.07, ease: EASE }}
+            className="rounded-3xl p-8 border bg-[#18181B] border-[#2563EB]/20 relative overflow-hidden"
+          >
+            <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
+            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">Tech Stack</p>
+            <div className="space-y-5">
+              {[
+                { cat: 'AI & Agents',   tools: ['Claude API', 'Claude Code', 'n8n', 'Voiceflow', 'Vapi', 'Retell AI'] },
+                { cat: 'Frontend',      tools: ['React', 'TypeScript', 'Tailwind', 'Next.js', 'Vite', 'Framer Motion'] },
+                { cat: 'Backend',       tools: ['Python', 'FastAPI', 'Node.js', 'Supabase'] },
+                { cat: 'Media & Voice', tools: ['Remotion', 'ElevenLabs', 'CapCut', 'WhatsApp Business'] },
+              ].map(group => (
+                <div key={group.cat}>
+                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.18em] mb-2 [font-family:var(--font-heading)]">{group.cat}</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {group.tools.map(tool => (
+                      <span
+                        key={tool}
+                        className="text-[11px] text-zinc-400 bg-zinc-800/60 border border-zinc-700/50 rounded-lg px-2.5 py-1 hover:border-[#2563EB]/40 hover:text-zinc-200 transition-colors duration-200 cursor-default"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
