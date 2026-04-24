@@ -24,6 +24,12 @@ body {
 details summary::-webkit-details-marker { display: none; }
 details[open] summary .faq-icon { transform: rotate(45deg); }
 
+/* Marquee scroll */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

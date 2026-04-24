@@ -204,7 +204,7 @@ export default function App() {
       </section>
 
       {/* ── HERO ────────────────────────────────────────────────── */}
-      <section className="max-w-4xl mx-auto mb-40 px-6 text-center">
+      <section className="max-w-4xl mx-auto mb-16 px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -255,21 +255,42 @@ export default function App() {
           </a>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.75, duration: 0.6 }}
-          aria-hidden="true"
-          className="mt-14 flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-[11px] text-zinc-700 uppercase tracking-[0.2em]"
-        >
-          {['AI Tools', 'Web Apps', 'Automation', 'AI Agents', 'Delivered fast'].map((tag, i, arr) => (
-            <span key={tag} className="flex items-center gap-6">
-              {tag}
-              {i < arr.length - 1 && <span className="w-1 h-1 rounded-full bg-zinc-800 -ml-3" />}
-            </span>
-          ))}
-        </motion.div>
       </section>
+
+      {/* ── MARQUEE ─────────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8, duration: 0.8 }}
+        className="relative w-full overflow-hidden py-4 mb-32"
+        style={{
+          borderTop: '1px solid rgba(37,99,235,0.22)',
+          borderBottom: '1px solid rgba(37,99,235,0.22)',
+          background: 'linear-gradient(90deg, rgba(37,99,235,0.02) 0%, rgba(37,99,235,0.07) 50%, rgba(37,99,235,0.02) 100%)',
+          boxShadow: '0 0 50px rgba(37,99,235,0.1), inset 0 0 40px rgba(37,99,235,0.04)',
+        }}
+      >
+        <div aria-hidden="true" className="absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #09090B, transparent)' }} />
+        <div aria-hidden="true" className="absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #09090B, transparent)' }} />
+        <div
+          aria-hidden="true"
+          className="flex"
+          style={{ animation: 'marquee 24s linear infinite', width: 'max-content' }}
+        >
+          {[...Array(2)].flatMap((_, set) =>
+            ['AI Tools', 'Web Apps', 'Automation', 'AI Agents', 'Delivered fast'].map(tag => (
+              <span
+                key={`${set}-${tag}`}
+                className="inline-flex items-center gap-10 px-10 text-[11px] uppercase tracking-[0.35em] whitespace-nowrap select-none"
+                style={{ color: 'rgba(96,165,250,0.75)', textShadow: '0 0 18px rgba(59,130,246,0.55)' }}
+              >
+                {tag}
+                <span style={{ width: 3, height: 3, borderRadius: '50%', display: 'inline-block', background: 'rgba(59,130,246,0.5)', boxShadow: '0 0 8px rgba(59,130,246,0.7)' }} />
+              </span>
+            ))
+          )}
+        </div>
+      </motion.div>
 
       {/* ── ABOUT ───────────────────────────────────────────────── */}
       <section id="about" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
@@ -400,24 +421,83 @@ export default function App() {
               <p className="mt-8 text-[11px] text-zinc-600 font-mono">Python · FastAPI · Claude API · WhatsApp Business</p>
             </div>
 
-            <div className="relative bg-zinc-900/50 border-l border-zinc-800/50 min-h-[280px] overflow-hidden flex flex-col items-center justify-center px-8">
-              <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(400px circle at 60% 40%, rgba(37,99,235,0.06), transparent 70%)' }} />
-              <div className="relative w-full max-w-[260px] flex flex-col gap-3">
-                <div className="flex gap-2 items-end">
-                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[10px] text-[#3B82F6] shrink-0 font-bold [font-family:var(--font-heading)]">R</div>
-                  <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-4 py-2.5 text-xs text-zinc-300 max-w-[200px] leading-relaxed">
-                    Hey! Ich bin Roxi 👋 Wann soll ich deinen Termin buchen?
-                  </div>
+            <div className="relative bg-zinc-900/50 border-l border-zinc-800/50 overflow-hidden flex flex-col">
+              <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(400px circle at 60% 40%, rgba(37,99,235,0.05), transparent 70%)' }} />
+              {/* Chat header */}
+              <div className="relative flex items-center gap-2.5 px-5 py-3.5 border-b border-zinc-800/60 shrink-0">
+                <div className="w-7 h-7 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[10px] text-[#3B82F6] font-bold [font-family:var(--font-heading)] shrink-0">R</div>
+                <div>
+                  <p className="text-xs font-semibold text-white [font-family:var(--font-heading)]">Roxi</p>
+                  <p className="text-[10px] text-emerald-400">online</p>
                 </div>
+              </div>
+              {/* Messages */}
+              <div className="relative flex flex-col gap-2.5 px-4 py-4 overflow-y-auto max-h-[380px]">
+                {/* User */}
                 <div className="flex justify-end">
-                  <div className="bg-[#2563EB]/20 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-4 py-2.5 text-xs text-zinc-300 max-w-[160px] leading-relaxed">
-                    Morgen um 14 Uhr bitte
+                  <div className="flex flex-col items-end gap-0.5 max-w-[210px]">
+                    <div className="bg-[#2563EB]/25 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-3.5 py-2 text-[11px] text-zinc-200 leading-relaxed">
+                      Hallo, kann ich morgen einen Termin buchen?
+                    </div>
+                    <span className="text-[9px] text-zinc-700 pr-1">01:26</span>
                   </div>
                 </div>
+                {/* Roxi */}
                 <div className="flex gap-2 items-end">
-                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[10px] text-[#3B82F6] shrink-0 font-bold [font-family:var(--font-heading)]">R</div>
-                  <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-4 py-2.5 text-xs text-zinc-300 max-w-[200px] leading-relaxed">
-                    ✅ Termin bestätigt! Du bekommst eine Erinnerung am Vorabend.
+                  <div className="w-5 h-5 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[8px] text-[#3B82F6] font-bold shrink-0 mb-3.5">R</div>
+                  <div className="flex flex-col gap-0.5 max-w-[220px]">
+                    <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-3.5 py-2 text-[11px] text-zinc-300 leading-relaxed">
+                      Hallo! 😊 Klar, gerne helfe ich dir bei der Terminbuchung für morgen.<br /><br />
+                      Dafür brauche ich noch ein paar Infos:<br />
+                      – Welche Leistung möchtest du?<br />
+                      – Wie heißt du?<br />
+                      – Deine Handynummer?<br />
+                      – Bevorzugte Uhrzeit?
+                    </div>
+                    <span className="text-[9px] text-zinc-700 pl-1">01:26</span>
+                  </div>
+                </div>
+                {/* User */}
+                <div className="flex justify-end">
+                  <div className="flex flex-col items-end gap-0.5 max-w-[210px]">
+                    <div className="bg-[#2563EB]/25 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-3.5 py-2 text-[11px] text-zinc-200 leading-relaxed">
+                      Herrenhaarschnitt, mein Name ist Max, morgen um 9:30
+                    </div>
+                    <span className="text-[9px] text-zinc-700 pr-1">01:29</span>
+                  </div>
+                </div>
+                {/* Roxi */}
+                <div className="flex gap-2 items-end">
+                  <div className="w-5 h-5 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[8px] text-[#3B82F6] font-bold shrink-0 mb-3.5">R</div>
+                  <div className="flex flex-col gap-0.5 max-w-[220px]">
+                    <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-3.5 py-2 text-[11px] text-zinc-300 leading-relaxed">
+                      Super, 9:30 Uhr ist frei! 🎉<br />
+                      Gib mir noch deine Handynummer, dann buche ich den Termin für dich.
+                    </div>
+                    <span className="text-[9px] text-zinc-700 pl-1">01:30</span>
+                  </div>
+                </div>
+                {/* User */}
+                <div className="flex justify-end">
+                  <div className="flex flex-col items-end gap-0.5 max-w-[210px]">
+                    <div className="bg-[#2563EB]/25 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-3.5 py-2 text-[11px] text-zinc-200 leading-relaxed">
+                      meine Nummer ist 4915112345678
+                    </div>
+                    <span className="text-[9px] text-zinc-700 pr-1">01:30</span>
+                  </div>
+                </div>
+                {/* Roxi final */}
+                <div className="flex gap-2 items-end">
+                  <div className="w-5 h-5 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[8px] text-[#3B82F6] font-bold shrink-0 mb-3.5">R</div>
+                  <div className="flex flex-col gap-0.5 max-w-[220px]">
+                    <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-3.5 py-2 text-[11px] text-zinc-300 leading-relaxed">
+                      Perfekt! ✅ Dein Herrenhaarschnitt ist gebucht:<br /><br />
+                      <span className="text-white font-semibold">23.04.2026 um 09:30 Uhr</span><br />
+                      – Kosten: ab 20€<br />
+                      – Dauer: 30 Min.<br /><br />
+                      Bis morgen, Max! 💇‍♂️
+                    </div>
+                    <span className="text-[9px] text-zinc-700 pl-1">01:30</span>
                   </div>
                 </div>
               </div>
@@ -598,64 +678,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── BETA LAUNCH ─────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto mb-40 px-6">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Early access</motion.p>
-        <motion.div
-          {...fadeUp}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="relative bg-[#18181B] border border-[#2563EB]/25 rounded-3xl p-10 md:p-16 text-center overflow-hidden"
-        >
-          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />
-          <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(600px circle at 50% -20%, rgba(37,99,235,0.07), transparent 60%)' }} />
-          <span className="relative inline-flex items-center gap-2 rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-1.5 mb-7 text-xs text-[#60A5FA] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" aria-hidden="true" />
-            Deployment-ready
-          </span>
-          <p className="relative text-3xl md:text-4xl font-bold text-white [font-family:var(--font-heading)] leading-snug mb-4 max-w-xl mx-auto">
-            Erste Beta-Kunden gesucht
-          </p>
-          <p className="relative text-zinc-400 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-10">
-            Kostenloser Testmonat für Pilotbetriebe — Frisöre, Praxen & Tattoo-Studios, die ihren Terminkalender vollautomatisch machen wollen.
-          </p>
-          <a
-            href="#contact"
-            className="relative inline-flex items-center gap-2 rounded-full px-8 py-3.5 bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
-          >
-            Jetzt bewerben ↗
-          </a>
-        </motion.div>
-      </section>
 
-      {/* ── FAQ ─────────────────────────────────────────────────── */}
-      <section className="max-w-2xl mx-auto mb-40 px-6">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">FAQ</motion.p>
-        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
-          Common questions
-        </motion.h2>
-        <div className="space-y-2">
-          {[
-            { q: 'How fast can you deliver?', a: 'Most projects are scoped and started within 1–3 days. Simple tools or landing pages can ship the same day. Larger systems take 1–2 weeks.' },
-            { q: 'Do I need a technical background to work with you?', a: 'No. I translate technical complexity into plain language. You tell me the problem — I handle everything else.' },
-            { q: 'What does a project typically cost?', a: 'TODO: Add your pricing. E.g. "Simple tools start at €X. Full web apps from €Y. AI agents are scoped per project."' },
-            { q: 'Can I hire you for ongoing work?', a: 'Yes — I take on retainer arrangements for ongoing builds, maintenance, and iteration. Let\'s talk about what makes sense for your situation.' },
-            { q: 'What if I just have an idea and no spec?', a: "That's fine — most projects start that way. We'll clarify the idea together and I'll help you figure out what to build first." },
-          ].map((item, i) => (
-            <motion.details
-              key={i}
-              {...fadeUp}
-              transition={{ duration: 0.35, delay: i * 0.05, ease: EASE }}
-              className="group bg-[#18181B] border border-zinc-800 rounded-2xl overflow-hidden"
-            >
-              <summary className="flex justify-between items-center px-6 py-5 cursor-pointer list-none text-white text-sm font-medium [font-family:var(--font-heading)] hover:text-[#60A5FA] transition-colors duration-200 select-none">
-                {item.q}
-                <span aria-hidden="true" className="faq-icon text-zinc-600 group-open:rotate-45 transition-transform duration-200 text-xl leading-none ml-4 shrink-0">+</span>
-              </summary>
-              <p className="px-6 pb-5 text-zinc-400 text-sm leading-relaxed">{item.a}</p>
-            </motion.details>
-          ))}
-        </div>
-      </section>
 
       {/* ── CONTACT ─────────────────────────────────────────────── */}
       <section id="contact" className="max-w-4xl mx-auto px-6 scroll-mt-28">
