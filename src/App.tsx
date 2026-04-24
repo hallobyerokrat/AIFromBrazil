@@ -655,9 +655,9 @@ export default function App() {
             <p className="text-[11px] text-zinc-600 uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">Core Skills</p>
             <ul className="space-y-0">
               {[
-                { label: 'AI Tools & Agent Development',  sub: 'Custom AI systems, autonomous agents, Claude API' },
-                { label: 'Web Apps & Digital Products',   sub: 'Landing pages to full-stack applications' },
-                { label: 'Automation & Workflows',        sub: 'n8n, Make, API integrations, end-to-end pipelines' },
+                { label: 'AI Tools & Agent Development',  sub: 'Claude API, custom agents, WhatsApp & social media bots' },
+                { label: 'SaaS & Web App Development',    sub: 'Next.js, Supabase, Stripe — from auth to payments' },
+                { label: 'Automation & Bots',             sub: 'WhatsApp bots, Twitter automation, scheduled AI pipelines' },
                 { label: 'Rapid Prototyping & Shipping',  sub: 'From idea to working product in days, not weeks' },
               ].map((skill, i) => (
                 <li key={skill.label} className="flex items-start gap-4 py-4 border-b border-zinc-800/60 last:border-0 last:pb-0 first:pt-0">
@@ -681,10 +681,10 @@ export default function App() {
             <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">Tech Stack</p>
             <div className="space-y-5">
               {[
-                { cat: 'AI & Agents',   tools: ['Claude API', 'Claude Code', 'n8n', 'Voiceflow', 'Vapi', 'Retell AI'] },
-                { cat: 'Frontend',      tools: ['React', 'TypeScript', 'Tailwind', 'Next.js', 'Vite', 'Framer Motion'] },
-                { cat: 'Backend',       tools: ['Python', 'FastAPI', 'Node.js', 'Supabase'] },
-                { cat: 'Media & Voice', tools: ['Remotion', 'ElevenLabs', 'CapCut', 'WhatsApp Business'] },
+                { cat: 'AI & Agents',      tools: ['Claude API', 'Anthropic SDK', 'Claude Code'] },
+                { cat: 'Frontend',         tools: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'] },
+                { cat: 'Backend',          tools: ['Python', 'FastAPI', 'Node.js', 'Supabase', 'SQLite'] },
+                { cat: 'Automation & Tools', tools: ['n8n', 'Stripe', 'Resend', 'Twitter API', 'WhatsApp Business', 'Remotion', 'CapCut'] },
               ].map(group => (
                 <div key={group.cat}>
                   <p className="text-[10px] text-zinc-700 uppercase tracking-[0.18em] mb-2 [font-family:var(--font-heading)]">{group.cat}</p>
