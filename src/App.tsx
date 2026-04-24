@@ -365,6 +365,66 @@ export default function App() {
           </div>
         </motion.article>
 
+        {/* KI-Sekretärin — second featured card */}
+        <motion.article
+          {...fadeUp}
+          transition={{ duration: 0.6, delay: 0.05, ease: EASE }}
+          className="group relative rounded-3xl overflow-hidden mb-6 cursor-pointer"
+          style={{ background: 'linear-gradient(140deg,#18181B 0%,#1c1c23 100%)', border: '1px solid rgba(37,99,235,0.22)' }}
+        >
+          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />
+          <div aria-hidden="true" className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: 'radial-gradient(700px circle at 40% 0%,rgba(37,99,235,0.07),transparent 55%)' }} />
+
+          <div className="relative grid md:grid-cols-[1fr_1.1fr]">
+            <div className="p-10 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center gap-3 mb-5">
+                  <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">Featured product</span>
+                  <span className="flex items-center gap-1.5 text-[10px] text-zinc-500 uppercase tracking-[0.15em]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" aria-hidden="true" />Ready to deploy
+                  </span>
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 [font-family:var(--font-heading)] group-hover:text-[#60A5FA] transition-colors duration-300">KI-Sekretärin "Roxi"</h3>
+                <p className="text-zinc-400 leading-relaxed mb-7 max-w-sm">WhatsApp-Bot für Terminbusiness — bucht, bestätigt, erinnert. 24/7. Vollautomatisch.</p>
+                <div className="space-y-3 text-sm">
+                  <div>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Problem</p>
+                    <p className="text-zinc-300">Frisöre, Tätowierer & Praxen verlieren täglich Termine durch verpasste WhatsApp-Nachrichten.</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Solution</p>
+                    <p className="text-zinc-300">KI antwortet sofort, prüft Verfügbarkeit und bucht den Termin — ohne menschliches Zutun.</p>
+                  </div>
+                </div>
+              </div>
+              <p className="mt-8 text-[11px] text-zinc-600 font-mono">Python · FastAPI · Claude API · WhatsApp Business</p>
+            </div>
+
+            <div className="relative bg-zinc-900/50 border-l border-zinc-800/50 min-h-[280px] overflow-hidden flex flex-col items-center justify-center px-8">
+              <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(400px circle at 60% 40%, rgba(37,99,235,0.06), transparent 70%)' }} />
+              <div className="relative w-full max-w-[260px] flex flex-col gap-3">
+                <div className="flex gap-2 items-end">
+                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[10px] text-[#3B82F6] shrink-0 font-bold [font-family:var(--font-heading)]">R</div>
+                  <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-4 py-2.5 text-xs text-zinc-300 max-w-[200px] leading-relaxed">
+                    Hey! Ich bin Roxi 👋 Wann soll ich deinen Termin buchen?
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <div className="bg-[#2563EB]/20 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-4 py-2.5 text-xs text-zinc-300 max-w-[160px] leading-relaxed">
+                    Morgen um 14 Uhr bitte
+                  </div>
+                </div>
+                <div className="flex gap-2 items-end">
+                  <div className="w-7 h-7 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[10px] text-[#3B82F6] shrink-0 font-bold [font-family:var(--font-heading)]">R</div>
+                  <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-4 py-2.5 text-xs text-zinc-300 max-w-[200px] leading-relaxed">
+                    ✅ Termin bestätigt! Du bekommst eine Erinnerung am Vorabend.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.article>
+
         {/* Secondary cards */}
         <div className="grid md:grid-cols-2 gap-6">
           {[
@@ -449,7 +509,7 @@ export default function App() {
             { name: 'Website & Web App Creation',        desc: 'From landing pages to full-stack web applications'              },
             { name: 'Automation Systems & Workflows',    desc: 'End-to-end workflow automation with n8n, Make, and AI'          },
             { name: 'Autonomous AI Agents',              desc: 'Agents that handle leads, emails, and repetitive tasks 24/7'    },
-            { name: 'AI Phone Assistants & Chatbots',   desc: 'Voice AI and chatbots for customer interactions'                },
+            { name: 'KI-Sekretärin & WhatsApp Bots',      desc: 'Terminbuchung per WhatsApp — vollautomatisch für Frisöre, Praxen & mehr.' },
             { name: 'Lead Qualification & Email Auto',  desc: 'Automated systems that qualify and follow up on leads'          },
             { name: 'AI Video & Ad Production',          desc: 'AI-driven video content with Remotion and ElevenLabs'           },
             { name: '1-on-1 AI Coaching',                desc: 'Learn to use AI tools effectively for your business'            },
@@ -538,37 +598,33 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ────────────────────────────────────────── */}
+      {/* ── BETA LAUNCH ─────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-40 px-6">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Social proof</motion.p>
-        <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
-          What clients say
-        </motion.h2>
-        <div className="grid md:grid-cols-3 gap-5">
-          {[
-            { quote: 'TODO: Add a real client quote here.', name: 'Client Name', role: 'Role · Company' },
-            { quote: 'TODO: "He delivered the website in one day — exactly what we needed."', name: 'Client Name', role: 'Role · Company' },
-            { quote: 'TODO: Even a short quote from a collaborator or beta user works well.', name: 'Client Name', role: 'Role · Company' },
-          ].map((t, i) => (
-            <motion.figure
-              key={i}
-              {...fadeUp}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
-              className="bg-[#18181B] border border-dashed border-zinc-800/60 rounded-3xl p-7 flex flex-col justify-between gap-5 opacity-50 hover:opacity-80 focus-within:opacity-80 transition-opacity duration-300"
-            >
-              <blockquote>
-                <p className="text-zinc-400 text-sm leading-relaxed italic">"{t.quote}"</p>
-              </blockquote>
-              <figcaption className="flex items-center gap-3">
-                <div aria-hidden="true" className="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-[9px] text-zinc-600 uppercase shrink-0">Pic</div>
-                <div>
-                  <p className="text-sm font-medium text-white [font-family:var(--font-heading)]">{t.name}</p>
-                  <p className="text-xs text-zinc-600">{t.role}</p>
-                </div>
-              </figcaption>
-            </motion.figure>
-          ))}
-        </div>
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Early access</motion.p>
+        <motion.div
+          {...fadeUp}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="relative bg-[#18181B] border border-[#2563EB]/25 rounded-3xl p-10 md:p-16 text-center overflow-hidden"
+        >
+          <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />
+          <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(600px circle at 50% -20%, rgba(37,99,235,0.07), transparent 60%)' }} />
+          <span className="relative inline-flex items-center gap-2 rounded-full border border-[#2563EB]/30 bg-[#2563EB]/10 px-4 py-1.5 mb-7 text-xs text-[#60A5FA] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3B82F6] animate-pulse" aria-hidden="true" />
+            Deployment-ready
+          </span>
+          <p className="relative text-3xl md:text-4xl font-bold text-white [font-family:var(--font-heading)] leading-snug mb-4 max-w-xl mx-auto">
+            Erste Beta-Kunden gesucht
+          </p>
+          <p className="relative text-zinc-400 text-base md:text-lg leading-relaxed max-w-md mx-auto mb-10">
+            Kostenloser Testmonat für Pilotbetriebe — Frisöre, Praxen & Tattoo-Studios, die ihren Terminkalender vollautomatisch machen wollen.
+          </p>
+          <a
+            href="#contact"
+            className="relative inline-flex items-center gap-2 rounded-full px-8 py-3.5 bg-[#2563EB] text-white font-semibold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
+          >
+            Jetzt bewerben ↗
+          </a>
+        </motion.div>
       </section>
 
       {/* ── FAQ ─────────────────────────────────────────────────── */}
