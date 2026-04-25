@@ -1,5 +1,7 @@
 import { motion, useMotionValue, useScroll, useSpring } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useLanguage } from './LanguageContext'
 
 function DotGrid() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -65,6 +67,7 @@ const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0
 const fadeIn  = { initial: { opacity: 0 },        whileInView: { opacity: 1 },        viewport: { once: true } }
 
 export default function App() {
+  const { t, lang, setLang } = useLanguage()
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const springX = useSpring(mouseX, { stiffness: 100, damping: 22 })
@@ -79,6 +82,10 @@ export default function App() {
   }, [mouseX, mouseY])
 
   useEffect(() => scrollY.on('change', v => setScrolled(v > 60)), [scrollY])
+
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
 
   return (
     <div className="relative text-white min-h-screen overflow-x-hidden">
@@ -118,14 +125,14 @@ export default function App() {
 
           <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
 
-          {[
-            { label: 'About',    href: '#about'    },
-            { label: 'Work',     href: '#work'     },
-            { label: 'Services', href: '#services' },
-            { label: 'Contact',  href: '#contact'  },
-          ].map(({ label, href }) => (
+          {([
+            { label: t.nav.about,    href: '#about'    },
+            { label: t.nav.work,     href: '#work'     },
+            { label: t.nav.services, href: '#services' },
+            { label: t.nav.contact,  href: '#contact'  },
+          ] as const).map(({ label, href }) => (
             <a
-              key={label}
+              key={href}
               href={href}
               className="text-xs sm:text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200"
             >
@@ -135,11 +142,40 @@ export default function App() {
 
           <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
 
+          {/* Language toggle */}
+          <div className="flex items-center gap-0.5">
+            <button
+              onClick={() => setLang('de')}
+              aria-label="Deutsch"
+              className={`text-[11px] font-semibold px-2 py-1 rounded-full transition-colors duration-200 [font-family:var(--font-heading)] ${
+                lang === 'de'
+                  ? 'text-white bg-zinc-700'
+                  : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              DE
+            </button>
+            <span aria-hidden="true" className="text-zinc-700 text-xs">|</span>
+            <button
+              onClick={() => setLang('en')}
+              aria-label="English"
+              className={`text-[11px] font-semibold px-2 py-1 rounded-full transition-colors duration-200 [font-family:var(--font-heading)] ${
+                lang === 'en'
+                  ? 'text-white bg-zinc-700'
+                  : 'text-zinc-500 hover:text-zinc-300'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
+          <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
+
           <a
             href="#contact"
             className="text-xs sm:text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200 [font-family:var(--font-heading)]"
           >
-            Say hi ↗
+            {t.nav.sayHi}
           </a>
         </motion.nav>
       </div>
@@ -151,10 +187,8 @@ export default function App() {
           autoPlay muted loop playsInline
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* Gradient: darken top (for nav legibility) and fade to bg at bottom */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/10 to-[#09090B]" />
 
-        {/* Brand names row */}
         <div className="absolute top-20 left-8 md:left-14 right-8 md:right-14 flex items-start justify-between">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -174,7 +208,7 @@ export default function App() {
               AIFromBrazil
             </span>
             <span className="text-[11px] text-white/40 uppercase tracking-[0.35em] pl-0.5 [font-family:var(--font-heading)]">
-              AI Tools & Digital Systems
+              {t.header.taglineAFB}
             </span>
           </motion.div>
 
@@ -196,11 +230,10 @@ export default function App() {
               BuiltByNikolay
             </span>
             <span className="text-[11px] text-white/40 uppercase tracking-[0.35em] pr-0.5 [font-family:var(--font-heading)]">
-              Designed & Developed
+              {t.header.taglineBBN}
             </span>
           </motion.div>
         </div>
-
       </section>
 
       {/* ── HERO ────────────────────────────────────────────────── */}
@@ -212,7 +245,7 @@ export default function App() {
           className="inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 mb-10 text-xs text-zinc-400 select-none"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-          Available for new projects
+          {t.hero.available}
         </motion.div>
 
         <motion.h1
@@ -221,8 +254,8 @@ export default function App() {
           transition={{ duration: 0.75, delay: 0.1, ease: EASE }}
           className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.06] mb-6 text-white [font-family:var(--font-heading)]"
         >
-          I build AI tools &<br />
-          <span className="text-[#3B82F6]">systems that ship.</span>
+          {t.hero.h1a}<br />
+          <span className="text-[#3B82F6]">{t.hero.h1b}</span>
         </motion.h1>
 
         <motion.p
@@ -231,8 +264,7 @@ export default function App() {
           transition={{ delay: 0.3, duration: 0.7 }}
           className="text-lg md:text-xl text-zinc-400 mb-10 max-w-xl mx-auto leading-relaxed"
         >
-          From AI-powered web apps to autonomous agents — I build
-          digital products that save time, generate revenue, and actually work.
+          {t.hero.desc}
         </motion.p>
 
         <motion.div
@@ -245,16 +277,15 @@ export default function App() {
             href="#contact"
             className="rounded-full px-8 py-3.5 text-base font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
           >
-            Work with me ↗
+            {t.hero.cta1}
           </a>
           <a
             href="#work"
             className="rounded-full px-8 py-3.5 text-base font-medium border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white active:border-zinc-400 transition-colors duration-200"
           >
-            See my work
+            {t.hero.cta2}
           </a>
         </motion.div>
-
       </section>
 
       {/* ── MARQUEE ─────────────────────────────────────────────── */}
@@ -278,7 +309,7 @@ export default function App() {
           style={{ animation: 'marquee 24s linear infinite', width: 'max-content' }}
         >
           {[...Array(2)].flatMap((_, set) =>
-            ['AI Tools', 'Web Apps', 'Automation', 'AI Agents', 'Delivered fast'].map(tag => (
+            t.marquee.map(tag => (
               <span
                 key={`${set}-${tag}`}
                 className="inline-flex items-center gap-10 px-10 text-[11px] uppercase tracking-[0.35em] whitespace-nowrap select-none"
@@ -294,18 +325,18 @@ export default function App() {
 
       {/* ── ABOUT ───────────────────────────────────────────────── */}
       <section id="about" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">About</motion.p>
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">{t.about.eyebrow}</motion.p>
         <div className="grid md:grid-cols-[1fr_260px] gap-14 items-start">
           <div>
             <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6 text-white [font-family:var(--font-heading)]">
-              I build digital products,<br />tools & systems.
+              {t.about.h2a}<br />{t.about.h2b}
             </motion.h2>
             <motion.p {...fadeUp} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} className="text-lg text-zinc-400 leading-relaxed mb-8 max-w-xl">
-              My work sits at the intersection of AI and product — building tools that save time, automate workflows, and generate real value. I move fast, ship working products, and focus on outcomes over process.
+              {t.about.desc}
             </motion.p>
             <motion.blockquote {...fadeUp} transition={{ duration: 0.5, delay: 0.2, ease: EASE }} className="relative pl-5 border-l-2 border-[#2563EB]">
               <p className="text-lg text-white/80 font-medium [font-family:var(--font-heading)] leading-relaxed">
-                "Not focused on content or trends — focused on building things that work."
+                {t.about.quote}
               </p>
             </motion.blockquote>
           </div>
@@ -319,12 +350,7 @@ export default function App() {
       {/* ── RESULTS ─────────────────────────────────────────────── */}
       <section aria-label="Key numbers" className="max-w-6xl mx-auto mb-40 px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800/80 rounded-3xl overflow-hidden">
-          {[
-            { value: '3+',    label: 'Products shipped'    },
-            { value: '100%',  label: 'AI-powered builds'   },
-            { value: '1 day', label: 'Avg. delivery time'  },
-            { value: '0→1',   label: 'Every single time'   },
-          ].map((stat, i) => (
+          {t.results.map((stat, i) => (
             <motion.div
               key={stat.label}
               {...fadeUp}
@@ -340,12 +366,12 @@ export default function App() {
 
       {/* ── WORK ────────────────────────────────────────────────── */}
       <section id="work" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Selected work</motion.p>
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">{t.work.eyebrow}</motion.p>
         <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
-          Things I've built
+          {t.work.h2}
         </motion.h2>
 
-        {/* Featured card */}
+        {/* Byerokrat — featured card */}
         <motion.article
           {...fadeUp}
           transition={{ duration: 0.6, ease: EASE }}
@@ -359,21 +385,21 @@ export default function App() {
             <div className="p-10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">Featured project</span>
+                  <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">{t.work.featuredProject}</span>
                   <span className="flex items-center gap-1.5 text-[10px] text-zinc-500 uppercase tracking-[0.15em]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />Live
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />{t.work.liveStatus}
                   </span>
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 [font-family:var(--font-heading)] group-hover:text-[#60A5FA] transition-colors duration-300">Byerokrat</h3>
-                <p className="text-zinc-400 leading-relaxed mb-7 max-w-sm">AI tax assistant for German freelancers & self-employed — answers tax questions in plain language, instantly.</p>
+                <p className="text-zinc-400 leading-relaxed mb-7 max-w-sm">{t.work.byerokrat.desc}</p>
                 <div className="space-y-3 text-sm">
                   <div>
-                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Problem</p>
-                    <p className="text-zinc-300">Freelancers waste hours on tax research, deadlines, and forms.</p>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">{t.work.problemLabel}</p>
+                    <p className="text-zinc-300">{t.work.byerokrat.problem}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Solution</p>
-                    <p className="text-zinc-300">AI chat that answers tax questions instantly in plain language.</p>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">{t.work.solutionLabel}</p>
+                    <p className="text-zinc-300">{t.work.byerokrat.solution}</p>
                   </div>
                 </div>
               </div>
@@ -386,7 +412,7 @@ export default function App() {
           </div>
         </motion.article>
 
-        {/* KI-Sekretärin — second featured card */}
+        {/* KI-Sekretärin Roxi — second featured card */}
         <motion.article
           {...fadeUp}
           transition={{ duration: 0.6, delay: 0.05, ease: EASE }}
@@ -400,21 +426,21 @@ export default function App() {
             <div className="p-10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-3 mb-5">
-                  <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">Featured product</span>
+                  <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">{t.work.featuredProduct}</span>
                   <span className="flex items-center gap-1.5 text-[10px] text-zinc-500 uppercase tracking-[0.15em]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" aria-hidden="true" />Ready to deploy
+                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" aria-hidden="true" />{t.work.deployStatus}
                   </span>
                 </div>
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 [font-family:var(--font-heading)] group-hover:text-[#60A5FA] transition-colors duration-300">KI-Sekretärin "Roxi"</h3>
-                <p className="text-zinc-400 leading-relaxed mb-7 max-w-sm">WhatsApp-Bot für Terminbusiness — bucht, bestätigt, erinnert. 24/7. Vollautomatisch.</p>
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 [font-family:var(--font-heading)] group-hover:text-[#60A5FA] transition-colors duration-300">KI-Sekretärin „Roxi"</h3>
+                <p className="text-zinc-400 leading-relaxed mb-7 max-w-sm">{t.work.roxi.desc}</p>
                 <div className="space-y-3 text-sm">
                   <div>
-                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Problem</p>
-                    <p className="text-zinc-300">Frisöre, Tätowierer & Praxen verlieren täglich Termine durch verpasste WhatsApp-Nachrichten.</p>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">{t.work.problemLabel}</p>
+                    <p className="text-zinc-300">{t.work.roxi.problem}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">Solution</p>
-                    <p className="text-zinc-300">KI antwortet sofort, prüft Verfügbarkeit und bucht den Termin — ohne menschliches Zutun.</p>
+                    <p className="text-[10px] text-zinc-600 uppercase tracking-[0.15em] mb-1 [font-family:var(--font-heading)]">{t.work.solutionLabel}</p>
+                    <p className="text-zinc-300">{t.work.roxi.solution}</p>
                   </div>
                 </div>
               </div>
@@ -423,7 +449,6 @@ export default function App() {
 
             <div className="relative bg-zinc-900/50 border-l border-zinc-800/50 overflow-hidden flex flex-col">
               <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(400px circle at 60% 40%, rgba(37,99,235,0.05), transparent 70%)' }} />
-              {/* Chat header */}
               <div className="relative flex items-center gap-2.5 px-5 py-3.5 border-b border-zinc-800/60 shrink-0">
                 <div className="w-7 h-7 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[10px] text-[#3B82F6] font-bold [font-family:var(--font-heading)] shrink-0">R</div>
                 <div>
@@ -431,9 +456,7 @@ export default function App() {
                   <p className="text-[10px] text-emerald-400">online</p>
                 </div>
               </div>
-              {/* Messages */}
               <div className="relative flex flex-col gap-2.5 px-4 py-4 overflow-y-auto max-h-[380px]">
-                {/* User */}
                 <div className="flex justify-end">
                   <div className="flex flex-col items-end gap-0.5 max-w-[210px]">
                     <div className="bg-[#2563EB]/25 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-3.5 py-2 text-[11px] text-zinc-200 leading-relaxed">
@@ -442,22 +465,18 @@ export default function App() {
                     <span className="text-[9px] text-zinc-700 pr-1">01:26</span>
                   </div>
                 </div>
-                {/* Roxi */}
                 <div className="flex gap-2 items-end">
                   <div className="w-5 h-5 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[8px] text-[#3B82F6] font-bold shrink-0 mb-3.5">R</div>
                   <div className="flex flex-col gap-0.5 max-w-[220px]">
                     <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-3.5 py-2 text-[11px] text-zinc-300 leading-relaxed">
-                      Hallo! 😊 Klar, gerne helfe ich dir bei der Terminbuchung für morgen.<br /><br />
-                      Dafür brauche ich noch ein paar Infos:<br />
+                      Hallo! 😊 Klar, gerne helfe ich dir.<br /><br />
                       – Welche Leistung möchtest du?<br />
                       – Wie heißt du?<br />
-                      – Deine Handynummer?<br />
                       – Bevorzugte Uhrzeit?
                     </div>
                     <span className="text-[9px] text-zinc-700 pl-1">01:26</span>
                   </div>
                 </div>
-                {/* User */}
                 <div className="flex justify-end">
                   <div className="flex flex-col items-end gap-0.5 max-w-[210px]">
                     <div className="bg-[#2563EB]/25 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-3.5 py-2 text-[11px] text-zinc-200 leading-relaxed">
@@ -466,36 +485,15 @@ export default function App() {
                     <span className="text-[9px] text-zinc-700 pr-1">01:29</span>
                   </div>
                 </div>
-                {/* Roxi */}
-                <div className="flex gap-2 items-end">
-                  <div className="w-5 h-5 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[8px] text-[#3B82F6] font-bold shrink-0 mb-3.5">R</div>
-                  <div className="flex flex-col gap-0.5 max-w-[220px]">
-                    <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-3.5 py-2 text-[11px] text-zinc-300 leading-relaxed">
-                      Super, 9:30 Uhr ist frei! 🎉<br />
-                      Gib mir noch deine Handynummer, dann buche ich den Termin für dich.
-                    </div>
-                    <span className="text-[9px] text-zinc-700 pl-1">01:30</span>
-                  </div>
-                </div>
-                {/* User */}
-                <div className="flex justify-end">
-                  <div className="flex flex-col items-end gap-0.5 max-w-[210px]">
-                    <div className="bg-[#2563EB]/25 border border-[#2563EB]/20 rounded-2xl rounded-br-sm px-3.5 py-2 text-[11px] text-zinc-200 leading-relaxed">
-                      meine Nummer ist 4915112345678
-                    </div>
-                    <span className="text-[9px] text-zinc-700 pr-1">01:30</span>
-                  </div>
-                </div>
-                {/* Roxi final */}
                 <div className="flex gap-2 items-end">
                   <div className="w-5 h-5 rounded-full bg-[#2563EB]/20 border border-[#2563EB]/30 flex items-center justify-center text-[8px] text-[#3B82F6] font-bold shrink-0 mb-3.5">R</div>
                   <div className="flex flex-col gap-0.5 max-w-[220px]">
                     <div className="bg-zinc-800/80 rounded-2xl rounded-bl-sm px-3.5 py-2 text-[11px] text-zinc-300 leading-relaxed">
                       Perfekt! ✅ Dein Herrenhaarschnitt ist gebucht:<br /><br />
-                      <span className="text-white font-semibold">23.04.2026 um 09:30 Uhr</span><br />
-                      – Kosten: ab 20€<br />
+                      <span className="text-white font-semibold">Morgen um 09:30 Uhr</span><br />
+                      – Kosten: ab 20 €<br />
                       – Dauer: 30 Min.<br /><br />
-                      Bis morgen, Max! 💇‍♂️
+                      Bis dann, Max! 💇‍♂️
                     </div>
                     <span className="text-[9px] text-zinc-700 pl-1">01:30</span>
                   </div>
@@ -508,8 +506,26 @@ export default function App() {
         {/* Secondary cards */}
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { title: 'Céu de Brincar', desc: 'Author website for Ana Souza de Magalhães — books, bio, portfolio.', problem: 'Authors need a professional web presence but lack technical skills.', solution: 'Built with AI tools, delivered same day.', tech: 'Next.js · Tailwind · Framer Motion', status: 'Live — client', statusColor: 'bg-emerald-400', img: '/ceu-de-brincar.png' },
-            { title: 'Assilee TV', desc: 'AI-powered e-commerce & content platform.', problem: 'TODO: describe the problem', solution: 'TODO: describe the solution', tech: 'TODO', status: 'In progress', statusColor: 'bg-amber-400', img: '/assileetv.webp' },
+            {
+              title: 'Céu de Brincar',
+              img: '/ceu-de-brincar.png',
+              tech: 'Next.js · Tailwind · Framer Motion',
+              statusColor: 'bg-emerald-400',
+              status: t.work.ceuDeBrincar.status,
+              desc: t.work.ceuDeBrincar.desc,
+              problem: t.work.ceuDeBrincar.problem,
+              solution: t.work.ceuDeBrincar.solution,
+            },
+            {
+              title: 'Assilee TV',
+              img: '/assileetv.webp',
+              tech: 'TODO',
+              statusColor: 'bg-amber-400',
+              status: t.work.assilee.status,
+              desc: t.work.assilee.desc,
+              problem: t.work.assilee.problem,
+              solution: t.work.assilee.solution,
+            },
           ].map((p, i) => (
             <motion.article
               key={p.title}
@@ -530,11 +546,11 @@ export default function App() {
               <p className="relative text-zinc-500 text-sm mb-5 leading-relaxed">{p.desc}</p>
               <div className="relative space-y-3 text-xs flex-1">
                 <div>
-                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.12em] mb-1 [font-family:var(--font-heading)]">Problem</p>
+                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.12em] mb-1 [font-family:var(--font-heading)]">{t.work.problemLabel}</p>
                   <p className="text-zinc-500 leading-relaxed">{p.problem}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.12em] mb-1 [font-family:var(--font-heading)]">Solution</p>
+                  <p className="text-[10px] text-zinc-700 uppercase tracking-[0.12em] mb-1 [font-family:var(--font-heading)]">{t.work.solutionLabel}</p>
                   <p className="text-zinc-500 leading-relaxed">{p.solution}</p>
                 </div>
               </div>
@@ -546,17 +562,12 @@ export default function App() {
 
       {/* ── PROCESS ─────────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-40 px-6">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Process</motion.p>
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">{t.process.eyebrow}</motion.p>
         <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
-          How I work
+          {t.process.h2}
         </motion.h2>
         <div className="grid md:grid-cols-4 gap-4">
-          {[
-            { step: '01', title: 'Understand', desc: 'We talk through your problem, goal, and constraints. No fluff — just clarity on what needs to be built.' },
-            { step: '02', title: 'Plan', desc: 'I map out the solution, pick the right tools, and define a clear scope. You know what to expect.' },
-            { step: '03', title: 'Build', desc: 'I build fast using AI-assisted development. First working version in days, not weeks.' },
-            { step: '04', title: 'Ship & iterate', desc: "We launch, review, and improve. No disappearing after delivery — I'm here for what comes next." },
-          ].map((item, i) => (
+          {t.process.steps.map((item, i) => (
             <motion.div
               key={item.step}
               {...fadeUp}
@@ -573,27 +584,18 @@ export default function App() {
 
       {/* ── SERVICES ────────────────────────────────────────────── */}
       <section id="services" className="max-w-6xl mx-auto mb-40 px-6 scroll-mt-28">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Offerings</motion.p>
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">{t.services.eyebrow}</motion.p>
         <div className="grid md:grid-cols-2 gap-10 items-end mb-14">
           <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-white [font-family:var(--font-heading)]">
-            Services
+            {t.services.h2}
           </motion.h2>
           <motion.p {...fadeIn} transition={{ duration: 0.6, delay: 0.1 }} className="text-lg text-zinc-400 leading-relaxed">
-            I build digital products and AI systems for businesses, freelancers, and creators who want to move fast and get real results.
+            {t.services.desc}
           </motion.p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-x-10 mb-14">
-          {[
-            { name: 'AI Tool Development',               desc: 'Custom AI-powered tools built around your workflow'             },
-            { name: 'Website & Web App Creation',        desc: 'From landing pages to full-stack web applications'              },
-            { name: 'Automation Systems & Workflows',    desc: 'End-to-end workflow automation with n8n, Make, and AI'          },
-            { name: 'Autonomous AI Agents',              desc: 'Agents that handle leads, emails, and repetitive tasks 24/7'    },
-            { name: 'KI-Sekretärin & WhatsApp Bots',      desc: 'Terminbuchung per WhatsApp — vollautomatisch für Frisöre, Praxen & mehr.' },
-            { name: 'Lead Qualification & Email Auto',  desc: 'Automated systems that qualify and follow up on leads'          },
-            { name: 'AI Video & Ad Production',          desc: 'AI-driven video content with Remotion and ElevenLabs'           },
-            { name: '1-on-1 AI Coaching',                desc: 'Learn to use AI tools effectively for your business'            },
-          ].map((service, i) => (
+          {t.services.items.map((service, i) => (
             <motion.div
               key={service.name}
               {...fadeUp}
@@ -611,14 +613,9 @@ export default function App() {
 
         <div className="grid md:grid-cols-2 gap-5">
           <motion.div {...fadeUp} transition={{ duration: 0.5, ease: EASE }} className="bg-[#18181B] border border-zinc-800 rounded-3xl p-8">
-            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-5 [font-family:var(--font-heading)]">Who I work with</p>
+            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-5 [font-family:var(--font-heading)]">{t.services.whoTitle}</p>
             <ul className="space-y-3">
-              {[
-                'Freelancers & self-employed who need smarter tools',
-                'Small businesses that want to automate repetitive work',
-                'Creators & authors who need a digital presence',
-                'Companies looking to integrate AI into workflows',
-              ].map(item => (
+              {t.services.whoItems.map(item => (
                 <li key={item} className="flex items-start gap-2 text-zinc-400 text-sm">
                   <span aria-hidden="true" className="text-[#3B82F6] mt-0.5 shrink-0">–</span>{item}
                 </li>
@@ -627,13 +624,13 @@ export default function App() {
           </motion.div>
 
           <motion.div {...fadeUp} transition={{ duration: 0.5, delay: 0.1, ease: EASE }} className="bg-[#2563EB]/8 border border-[#2563EB]/20 rounded-3xl p-8 flex flex-col">
-            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-4 [font-family:var(--font-heading)]">Ready to start?</p>
-            <p className="text-zinc-300 text-sm leading-relaxed mb-8 flex-1">Most projects start within a few days. Tell me what you need and I'll get back to you within 24 hours.</p>
+            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-4 [font-family:var(--font-heading)]">{t.services.readyTitle}</p>
+            <p className="text-zinc-300 text-sm leading-relaxed mb-8 flex-1">{t.services.readyDesc}</p>
             <a
               href="#contact"
               className="inline-flex items-center gap-2 self-start rounded-full px-6 py-3 bg-[#2563EB] text-white text-sm font-semibold hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
             >
-              Get in touch ↗
+              {t.services.readyCta}
             </a>
           </motion.div>
         </div>
@@ -641,25 +638,19 @@ export default function App() {
 
       {/* ── STACK ───────────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto mb-40 px-6">
-        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Stack</motion.p>
+        <motion.p {...fadeIn} transition={{ duration: 0.5 }} className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">{t.stack.eyebrow}</motion.p>
         <motion.h2 {...fadeUp} transition={{ duration: 0.6, ease: EASE }} className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-10 text-white [font-family:var(--font-heading)]">
-          Tools & Skills
+          {t.stack.h2}
         </motion.h2>
         <div className="grid md:grid-cols-2 gap-5">
-          {/* Core Skills */}
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.5, ease: EASE }}
             className="rounded-3xl p-8 border bg-[#18181B] border-zinc-800/80 relative overflow-hidden"
           >
-            <p className="text-[11px] text-zinc-600 uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">Core Skills</p>
+            <p className="text-[11px] text-zinc-600 uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">{t.stack.coreLabel}</p>
             <ul className="space-y-0">
-              {[
-                { label: 'AI Tools & Agent Development',  sub: 'Claude API, custom agents, WhatsApp & social media bots' },
-                { label: 'SaaS & Web App Development',    sub: 'Next.js, Supabase, Stripe — from auth to payments' },
-                { label: 'Automation & Bots',             sub: 'WhatsApp bots, Twitter automation, scheduled AI pipelines' },
-                { label: 'Rapid Prototyping & Shipping',  sub: 'From idea to working product in days, not weeks' },
-              ].map((skill, i) => (
+              {t.stack.coreSkills.map((skill, i) => (
                 <li key={skill.label} className="flex items-start gap-4 py-4 border-b border-zinc-800/60 last:border-0 last:pb-0 first:pt-0">
                   <span className="text-[13px] font-bold text-[#2563EB] shrink-0 mt-0.5 [font-family:var(--font-heading)]">{String(i + 1).padStart(2, '0')}</span>
                   <div>
@@ -671,20 +662,19 @@ export default function App() {
             </ul>
           </motion.div>
 
-          {/* Tech Stack */}
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.5, delay: 0.07, ease: EASE }}
             className="rounded-3xl p-8 border bg-[#18181B] border-[#2563EB]/20 relative overflow-hidden"
           >
             <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
-            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">Tech Stack</p>
+            <p className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] mb-7 [font-family:var(--font-heading)]">{t.stack.techLabel}</p>
             <div className="space-y-5">
               {[
-                { cat: 'AI & Agents',      tools: ['Claude API', 'Anthropic SDK', 'Claude Code'] },
-                { cat: 'Frontend',         tools: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'] },
-                { cat: 'Backend',          tools: ['Python', 'FastAPI', 'Node.js', 'Supabase', 'SQLite'] },
-                { cat: 'Automation & Tools', tools: ['n8n', 'Stripe', 'Resend', 'Twitter API', 'WhatsApp Business', 'Remotion', 'CapCut'] },
+                { cat: 'AI & Agents',        tools: ['Claude API', 'Anthropic SDK', 'Claude Code'] },
+                { cat: 'Frontend',           tools: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'] },
+                { cat: 'Backend',            tools: ['Python', 'FastAPI', 'Node.js', 'Supabase', 'SQLite'] },
+                { cat: 'Automation & Tools', tools: ['n8n', 'Stripe', 'Resend', 'Twitter API', 'WhatsApp Business', 'Remotion'] },
               ].map(group => (
                 <div key={group.cat}>
                   <p className="text-[10px] text-zinc-700 uppercase tracking-[0.18em] mb-2 [font-family:var(--font-heading)]">{group.cat}</p>
@@ -705,8 +695,6 @@ export default function App() {
         </div>
       </section>
 
-
-
       {/* ── CONTACT ─────────────────────────────────────────────── */}
       <section id="contact" className="max-w-4xl mx-auto px-6 scroll-mt-28">
         <motion.div
@@ -717,12 +705,12 @@ export default function App() {
         >
           <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/40 to-transparent" />
           <div className="px-10 py-16 md:py-20">
-            <p className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">Contact</p>
+            <p className="text-xs text-[#3B82F6] uppercase tracking-[0.3em] mb-4 [font-family:var(--font-heading)]">{t.contact.eyebrow}</p>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-5 text-white [font-family:var(--font-heading)]">
-              Let's build something.
+              {t.contact.h2}
             </h2>
             <p className="text-lg text-zinc-400 mb-10 max-w-sm mx-auto">
-              Have a project in mind? I respond within 24 hours.
+              {t.contact.desc}
             </p>
             <a
               href="mailto:dnwayne97@gmail.com"
@@ -743,15 +731,20 @@ export default function App() {
           </div>
 
           <nav aria-label="Social links" className="flex items-center gap-5 text-sm text-zinc-600">
-            {/* TODO: replace # with real URLs */}
             <a href="#" className="hover:text-zinc-300 transition-colors duration-200">Twitter / X</a>
             <a href="#" className="hover:text-zinc-300 transition-colors duration-200">LinkedIn</a>
             <a href="#" className="hover:text-zinc-300 transition-colors duration-200">GitHub</a>
           </nav>
 
+          <nav aria-label="Legal links" className="flex items-center gap-4 text-xs text-zinc-600">
+            <Link to="/impressum" className="hover:text-zinc-300 transition-colors duration-200">{t.footer.impressum}</Link>
+            <span aria-hidden="true" className="text-zinc-800">·</span>
+            <Link to="/datenschutz" className="hover:text-zinc-300 transition-colors duration-200">{t.footer.datenschutz}</Link>
+          </nav>
+
           <div className="flex items-center gap-2 text-xs text-zinc-600">
             <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Available for projects</span>
+            <span>{t.footer.available}</span>
           </div>
         </div>
       </footer>
