@@ -53,9 +53,9 @@ export default function Datenschutz() {
               <h2 className="text-xs text-[#3B82F6] uppercase tracking-[0.25em] mb-3 [font-family:var(--font-heading)]">1. Verantwortlicher</h2>
               <p>
                 Verantwortlicher im Sinne der DSGVO:<br /><br />
-                [DEIN VOLLSTÄNDIGER NAME]<br />
-                [STRAßE UND HAUSNUMMER]<br />
-                [PLZ ORT]<br />
+                Daniel Nikolay<br />
+                Wilhelm-Leuschner-Straße 14<br />
+                64589 Stockstadt am Rhein<br />
                 E-Mail: <a href="mailto:dnwayne97@gmail.com" className="text-white hover:text-[#60A5FA] transition-colors">dnwayne97@gmail.com</a>
               </p>
             </section>
@@ -109,9 +109,9 @@ export default function Datenschutz() {
               <h2 className="text-xs text-[#3B82F6] uppercase tracking-[0.25em] mb-3 [font-family:var(--font-heading)]">1. Controller</h2>
               <p>
                 Data controller within the meaning of the GDPR:<br /><br />
-                [YOUR FULL NAME]<br />
-                [STREET AND NUMBER]<br />
-                [POSTAL CODE CITY]<br />
+                Daniel Nikolay<br />
+                Wilhelm-Leuschner-Straße 14<br />
+                64589 Stockstadt am Rhein<br />
                 Email: <a href="mailto:dnwayne97@gmail.com" className="text-white hover:text-[#60A5FA] transition-colors">dnwayne97@gmail.com</a>
               </p>
             </section>

@@ -52,9 +52,9 @@ export default function Impressum() {
             <section>
               <h2 className="text-xs text-[#3B82F6] uppercase tracking-[0.25em] mb-3 [font-family:var(--font-heading)]">Anbieter</h2>
               <p>
-                [DEIN VOLLSTÄNDIGER NAME]<br />
-                [STRAßE UND HAUSNUMMER]<br />
-                [PLZ ORT]<br />
+                Daniel Nikolay<br />
+                Wilhelm-Leuschner-Straße 14<br />
+                64589 Stockstadt am Rhein<br />
                 Deutschland
               </p>
             </section>
@@ -70,8 +70,8 @@ export default function Impressum() {
               <h2 className="text-xs text-[#3B82F6] uppercase tracking-[0.25em] mb-3 [font-family:var(--font-heading)]">Verantwortlich für den Inhalt</h2>
               <p>
                 Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:<br />
-                [DEIN VOLLSTÄNDIGER NAME]<br />
-                [ADRESSE WIE OBEN]
+                Daniel Nikolay<br />
+                Wilhelm-Leuschner-Straße 14, 64589 Stockstadt am Rhein
               </p>
             </section>
 
@@ -94,9 +94,9 @@ export default function Impressum() {
             <section>
               <h2 className="text-xs text-[#3B82F6] uppercase tracking-[0.25em] mb-3 [font-family:var(--font-heading)]">Service Provider</h2>
               <p>
-                [YOUR FULL NAME]<br />
-                [STREET AND NUMBER]<br />
-                [POSTAL CODE CITY]<br />
+                Daniel Nikolay<br />
+                Wilhelm-Leuschner-Straße 14<br />
+                64589 Stockstadt am Rhein<br />
                 Germany
               </p>
             </section>
@@ -112,8 +112,8 @@ export default function Impressum() {
               <h2 className="text-xs text-[#3B82F6] uppercase tracking-[0.25em] mb-3 [font-family:var(--font-heading)]">Responsible for Content</h2>
               <p>
                 Responsible for content according to § 55 para. 2 RStV:<br />
-                [YOUR FULL NAME]<br />
-                [ADDRESS AS ABOVE]
+                Daniel Nikolay<br />
+                Wilhelm-Leuschner-Straße 14, 64589 Stockstadt am Rhein
               </p>
             </section>
 
