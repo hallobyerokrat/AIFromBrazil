@@ -2,6 +2,7 @@ import { motion, useMotionValue, useScroll, useSpring } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from './LanguageContext'
+import ReviewsSection from './components/ReviewsSection'
 
 function DotGrid() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -694,6 +695,9 @@ export default function App() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── REVIEWS ─────────────────────────────────────────────── */}
+      <ReviewsSection />
 
       {/* ── CONTACT ─────────────────────────────────────────────── */}
       <section id="contact" className="max-w-4xl mx-auto px-6 scroll-mt-28">
