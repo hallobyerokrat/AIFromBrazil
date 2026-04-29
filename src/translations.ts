@@ -1,4 +1,4 @@
-export type Lang = 'de' | 'en'
+export type Lang = 'de' | 'en' | 'pt'
 
 const de = {
   nav: {
@@ -17,7 +17,7 @@ const de = {
     h1a: 'Ich baue KI-Tools &',
     h1b: 'Systeme, die liefern.',
     desc: 'Von KI-gestützten Web-Apps bis hin zu autonomen Agenten — ich baue digitale Produkte, die Zeit sparen, Umsatz generieren und wirklich funktionieren.',
-    cta1: 'Mit mir arbeiten ↗',
+    cta1: 'Projekt besprechen ↗',
     cta2: 'Meine Projekte',
   },
   marquee: ['KI-Tools', 'Web Apps', 'Automatisierung', 'KI-Agenten', 'Schnell geliefert'],
@@ -60,9 +60,9 @@ const de = {
       status: 'Live — Kunde',
     },
     assilee: {
-      desc: 'KI-gestützte E-Commerce & Content-Plattform.',
-      problem: 'TODO: Problem beschreiben',
-      solution: 'TODO: Lösung beschreiben',
+      desc: 'Full-Service Aufbau für einen Online-Shop mit Shopify & Amazon, Print-on-Demand-Integration und kompletter Markenentwicklung — Name, Visual Identity & Twitch-Kanal.',
+      problem: 'Der Kunde wollte eine eigene Marke aufbauen und online verkaufen — aber ohne technisches Know-how und ohne zu wissen, wo er anfangen soll.',
+      solution: 'Komplettlösung: Markenname & Visual Identity entwickelt, Shopify-Shop aufgebaut, Amazon-Anbindung integriert, Print-on-Demand über Drittanbieter eingerichtet und Twitch-Kanal aufgesetzt.',
       status: 'In Arbeit',
     },
   },
@@ -204,9 +204,9 @@ const en: typeof de = {
       status: 'Live — client',
     },
     assilee: {
-      desc: 'AI-powered e-commerce & content platform.',
-      problem: 'TODO: describe the problem',
-      solution: 'TODO: describe the solution',
+      desc: 'Full-service build of an online shop with Shopify & Amazon, print-on-demand integration, and complete brand development — name, visual identity & Twitch channel.',
+      problem: 'The client wanted to build their own brand and sell online — but without technical know-how and without knowing where to start.',
+      solution: 'Complete solution: brand name & visual identity developed, Shopify store built, Amazon integration set up, print-on-demand connected via third-party provider, and Twitch channel launched.',
       status: 'In progress',
     },
   },
@@ -288,5 +288,149 @@ const en: typeof de = {
   },
 }
 
-export const translations = { de, en }
+const pt: typeof de = {
+  nav: {
+    about: 'Sobre',
+    work: 'Projetos',
+    services: 'Serviços',
+    contact: 'Contato',
+    sayHi: 'Fala comigo ↗',
+  },
+  header: {
+    taglineAFB: 'Ferramentas de IA & Sistemas Digitais',
+    taglineBBN: 'Projetado & Desenvolvido',
+  },
+  hero: {
+    available: 'Disponível para novos projetos',
+    h1a: 'Crio ferramentas de IA &',
+    h1b: 'sistemas que entregam.',
+    desc: 'De web apps com IA a agentes autônomos — crio produtos digitais que economizam tempo, geram receita e realmente funcionam.',
+    cta1: 'Trabalhe comigo ↗',
+    cta2: 'Ver meus projetos',
+  },
+  marquee: ['Ferramentas de IA', 'Web Apps', 'Automação', 'Agentes de IA', 'Entregue rápido'],
+  about: {
+    eyebrow: 'Sobre mim',
+    h2a: 'Crio produtos digitais,',
+    h2b: 'ferramentas & sistemas.',
+    desc: 'Meu trabalho está na interseção entre IA e produto — construindo ferramentas que economizam tempo, automatizam fluxos de trabalho e geram valor real. Trabalho rápido, entrego produtos funcionando e foco em resultados, não em processos.',
+    quote: '"Não focado em conteúdo ou tendências — focado em construir coisas que funcionam."',
+  },
+  results: [
+    { value: '3+',    label: 'Produtos entregues'       },
+    { value: '100%',  label: 'Builds com IA'            },
+    { value: '1 dia', label: 'Tempo médio de entrega'   },
+    { value: '0→1',   label: 'Sempre'                   },
+  ],
+  work: {
+    eyebrow: 'Projetos selecionados',
+    h2: 'O que eu construí',
+    featuredProject: 'Projeto em destaque',
+    featuredProduct: 'Produto em destaque',
+    liveStatus: 'Ao vivo',
+    deployStatus: 'Pronto para publicar',
+    problemLabel: 'Problema',
+    solutionLabel: 'Solução',
+    byerokrat: {
+      desc: 'Assistente fiscal com IA para freelancers alemães — responde perguntas fiscais em linguagem simples, na hora.',
+      problem: 'Freelancers perdem horas pesquisando impostos, prazos e formulários.',
+      solution: 'Chat com IA que responde perguntas fiscais na hora em linguagem simples.',
+    },
+    roxi: {
+      desc: 'Bot de WhatsApp para negócios de agendamento — agenda, confirma, lembra. 24/7. Totalmente automatizado.',
+      problem: 'Salões, tatuadores e clínicas perdem agendamentos por mensagens não respondidas no WhatsApp.',
+      solution: 'A IA responde na hora, verifica disponibilidade e agenda — sem intervenção humana.',
+    },
+    ceuDeBrincar: {
+      desc: 'Site de autora para Ana Souza de Magalhães — livros, biografia, portfólio.',
+      problem: 'Autoras precisam de presença online profissional, mas não têm conhecimento técnico.',
+      solution: 'Desenvolvido com ferramentas de IA, entregue no mesmo dia.',
+      status: 'Ao vivo — cliente',
+    },
+    assilee: {
+      desc: 'Construção completa de uma loja online com Shopify & Amazon, integração de print-on-demand e desenvolvimento de marca completo — nome, identidade visual & canal no Twitch.',
+      problem: 'O cliente queria construir sua própria marca e vender online — mas sem conhecimento técnico e sem saber por onde começar.',
+      solution: 'Solução completa: nome da marca & identidade visual desenvolvidos, loja Shopify criada, integração com Amazon configurada, print-on-demand conectado via terceiros e canal no Twitch lançado.',
+      status: 'Em andamento',
+    },
+  },
+  process: {
+    eyebrow: 'Processo',
+    h2: 'Como eu trabalho',
+    steps: [
+      { step: '01', title: 'Entender',           desc: 'Conversamos sobre seu problema, objetivo e requisitos. Sem enrolação — só clareza sobre o que precisa ser construído.' },
+      { step: '02', title: 'Planejar',            desc: 'Mapeio a solução, escolho as ferramentas certas e defino um escopo claro. Você sabe o que esperar.' },
+      { step: '03', title: 'Construir',           desc: 'Construo rápido com desenvolvimento assistido por IA. Primeira versão funcionando em dias, não semanas.' },
+      { step: '04', title: 'Entregar & iterar',   desc: 'Lançamos, revisamos e melhoramos. Sem sumir após a entrega — estou aqui para o que vem a seguir.' },
+    ],
+  },
+  services: {
+    eyebrow: 'Oferta',
+    h2: 'Serviços',
+    desc: 'Crio produtos digitais e sistemas de IA para empresas, freelancers e criativos que querem avançar rápido e obter resultados reais.',
+    items: [
+      { name: 'Desenvolvimento de Ferramentas de IA',    desc: 'Ferramentas com IA personalizadas para o seu fluxo de trabalho'              },
+      { name: 'Criação de Sites & Web Apps',             desc: 'De landing pages a aplicações web completas'                                  },
+      { name: 'Sistemas de Automação & Workflows',       desc: 'Automação end-to-end com n8n, Make e IA'                                      },
+      { name: 'Agentes de IA Autônomos',                 desc: 'Agentes que cuidam de leads, e-mails e tarefas repetitivas 24/7'              },
+      { name: 'Secretária IA & Bots de WhatsApp',        desc: 'Agendamento via WhatsApp — totalmente automático para salões, clínicas e mais.' },
+      { name: 'Qualificação de Leads & E-mail Auto.',    desc: 'Sistemas automatizados para qualificar e fazer follow-up de leads'            },
+      { name: 'Produção de Vídeo & Anúncios com IA',    desc: 'Conteúdo em vídeo com IA usando Remotion e ElevenLabs'                        },
+      { name: 'Coaching 1-a-1 de IA',                   desc: 'Aprenda a usar ferramentas de IA de forma eficiente no seu negócio'            },
+    ],
+    whoTitle: 'Com quem trabalho',
+    whoItems: [
+      'Freelancers & autônomos que precisam de ferramentas mais inteligentes',
+      'Pequenas empresas que querem automatizar trabalho repetitivo',
+      'Criativos & autores que precisam de presença digital',
+      'Empresas que querem integrar IA nos seus fluxos de trabalho',
+    ],
+    readyTitle: 'Pronto para começar?',
+    readyDesc: 'A maioria dos projetos começa em poucos dias. Me diga o que você precisa e respondo em até 24 horas.',
+    readyCta: 'Entrar em contato ↗',
+  },
+  stack: {
+    eyebrow: 'Stack',
+    h2: 'Ferramentas & Habilidades',
+    coreLabel: 'Competências principais',
+    coreSkills: [
+      { label: 'Ferramentas de IA & Desenvolvimento de Agentes',  sub: 'Claude API, agentes próprios, bots de WhatsApp & redes sociais' },
+      { label: 'Desenvolvimento de SaaS & Web Apps',              sub: 'Next.js, Supabase, Stripe — de autenticação a pagamentos' },
+      { label: 'Automação & Bots',                                sub: 'Bots de WhatsApp, automação no Twitter, pipelines de IA agendados' },
+      { label: 'Prototipagem Rápida & Shipping',                  sub: 'Da ideia ao produto funcionando em dias, não semanas' },
+    ],
+    techLabel: 'Tech Stack',
+  },
+  reviews: {
+    eyebrow: 'Depoimentos',
+    h2: 'O que os clientes dizem',
+    empty: 'Nenhuma avaliação ainda — seja o primeiro.',
+    cta: 'Deixar avaliação',
+    pendingNote: 'Sua avaliação será publicada após uma breve verificação.',
+    modal: {
+      title: 'Deixar avaliação',
+      namePlaceholder: 'Seu nome',
+      rolePlaceholder: 'Cargo / Empresa (opcional)',
+      quotePlaceholder: 'Sua experiência trabalhando comigo...',
+      ratingLabel: 'Avaliação',
+      submit: 'Enviar',
+      submitting: 'Enviando…',
+      success: 'Obrigado! Sua avaliação será publicada em breve.',
+      error: 'Algo deu errado. Por favor, tente novamente.',
+      close: 'Fechar',
+    },
+  },
+  contact: {
+    eyebrow: 'Contato',
+    h2: 'Vamos construir algo.',
+    desc: 'Tem um projeto em mente? Respondo em até 24 horas.',
+  },
+  footer: {
+    available: 'Disponível para projetos',
+    impressum: 'Aviso Legal',
+    datenschutz: 'Política de Privacidade',
+  },
+}
+
+export const translations = { de, en, pt }
 export type T = typeof de

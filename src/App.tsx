@@ -67,8 +67,59 @@ const EASE = [0.25, 0.1, 0.25, 1] as const
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } }
 const fadeIn  = { initial: { opacity: 0 },        whileInView: { opacity: 1 },        viewport: { once: true } }
 
+const LANGS = [
+  { code: 'de', label: 'Deutsch' },
+  { code: 'en', label: 'English' },
+  { code: 'pt', label: 'Português' },
+] as const
+
+function LangDropdown() {
+  const { lang, setLang } = useLanguage()
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-full bg-zinc-800 text-zinc-300 hover:text-white hover:bg-zinc-700 transition-colors duration-200 [font-family:var(--font-heading)]"
+      >
+        {lang.toUpperCase()}
+        <svg width="8" height="5" viewBox="0 0 8 5" fill="none" className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}>
+          <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      {open && (
+        <div className="absolute right-0 top-full mt-1.5 w-28 bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-xl z-50">
+          {LANGS.map(({ code, label }) => (
+            <button
+              key={code}
+              onClick={() => { setLang(code); setOpen(false) }}
+              className={`w-full text-left px-3 py-2 text-[11px] [font-family:var(--font-heading)] transition-colors duration-150 ${
+                lang === code
+                  ? 'text-white bg-zinc-700'
+                  : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
+              }`}
+            >
+              <span className="font-bold mr-1.5">{code.toUpperCase()}</span>{label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function App() {
-  const { t, lang, setLang } = useLanguage()
+  const { t, lang } = useLanguage()
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const springX = useSpring(mouseX, { stiffness: 100, damping: 22 })
@@ -143,37 +194,15 @@ export default function App() {
 
           <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
 
-          {/* Language toggle */}
-          <div className="flex items-center gap-0.5">
-            <button
-              onClick={() => setLang('de')}
-              aria-label="Deutsch"
-              className={`text-[11px] font-semibold px-2 py-1 rounded-full transition-colors duration-200 [font-family:var(--font-heading)] ${
-                lang === 'de'
-                  ? 'text-white bg-zinc-700'
-                  : 'text-zinc-500 hover:text-zinc-300'
-              }`}
-            >
-              DE
-            </button>
-            <span aria-hidden="true" className="text-zinc-700 text-xs">|</span>
-            <button
-              onClick={() => setLang('en')}
-              aria-label="English"
-              className={`text-[11px] font-semibold px-2 py-1 rounded-full transition-colors duration-200 [font-family:var(--font-heading)] ${
-                lang === 'en'
-                  ? 'text-white bg-zinc-700'
-                  : 'text-zinc-500 hover:text-zinc-300'
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          {/* Language dropdown */}
+          <LangDropdown />
 
           <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
 
           <a
-            href="#contact"
+            href="https://wa.me/5521999791569"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs sm:text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] active:bg-[#1E40AF] rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200 [font-family:var(--font-heading)]"
           >
             {t.nav.sayHi}
@@ -275,7 +304,9 @@ export default function App() {
           className="flex flex-col sm:flex-row justify-center items-center gap-3"
         >
           <a
-            href="#contact"
+            href="https://wa.me/5521999791569"
+            target="_blank"
+            rel="noopener noreferrer"
             className="rounded-full px-8 py-3.5 text-base font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] active:bg-[#1E40AF] transition-colors duration-200 [font-family:var(--font-heading)]"
           >
             {t.hero.cta1}
@@ -373,10 +404,13 @@ export default function App() {
         </motion.h2>
 
         {/* Byerokrat — featured card */}
-        <motion.article
+        <motion.a
+          href="https://byerokrat.de"
+          target="_blank"
+          rel="noopener noreferrer"
           {...fadeUp}
           transition={{ duration: 0.6, ease: EASE }}
-          className="group relative rounded-3xl overflow-hidden mb-6 cursor-pointer"
+          className="group relative rounded-3xl overflow-hidden mb-6 cursor-pointer block"
           style={{ background: 'linear-gradient(140deg,#18181B 0%,#1c1c23 100%)', border: '1px solid rgba(37,99,235,0.22)' }}
         >
           <div aria-hidden="true" className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/50 to-transparent" />
@@ -411,7 +445,7 @@ export default function App() {
               <img src="/byerokrat.png" alt="Byerokrat app screenshot" className="w-full h-full object-cover object-top" />
             </div>
           </div>
-        </motion.article>
+        </motion.a>
 
         {/* KI-Sekretärin Roxi — second featured card */}
         <motion.article
@@ -508,14 +542,15 @@ export default function App() {
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              title: 'Céu de Brincar',
-              img: '/ceu-de-brincar.png',
+              title: 'Ana Souza — Website',
+              img: '/ana-souza.png',
               tech: 'Next.js · Tailwind · Framer Motion',
               statusColor: 'bg-emerald-400',
               status: t.work.ceuDeBrincar.status,
               desc: t.work.ceuDeBrincar.desc,
               problem: t.work.ceuDeBrincar.problem,
               solution: t.work.ceuDeBrincar.solution,
+              href: 'https://ana-souza-website.vercel.app',
             },
             {
               title: 'Assilee TV',
@@ -526,10 +561,14 @@ export default function App() {
               desc: t.work.assilee.desc,
               problem: t.work.assilee.problem,
               solution: t.work.assilee.solution,
+              href: undefined,
             },
           ].map((p, i) => (
-            <motion.article
+            <motion.a
               key={p.title}
+              href={p.href}
+              target={p.href ? '_blank' : undefined}
+              rel={p.href ? 'noopener noreferrer' : undefined}
               {...fadeUp}
               transition={{ duration: 0.5, delay: i * 0.1, ease: EASE }}
               className="group relative bg-[#18181B] border border-zinc-800 hover:border-zinc-700 rounded-3xl p-6 overflow-hidden flex flex-col transition-colors duration-300 cursor-pointer"
@@ -556,7 +595,7 @@ export default function App() {
                 </div>
               </div>
               <p className="relative mt-4 text-[10px] font-mono text-zinc-700">{p.tech}</p>
-            </motion.article>
+            </motion.a>
           ))}
         </div>
       </section>
