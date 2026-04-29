@@ -169,10 +169,10 @@ export default function App() {
         >
           <a
             href="#top"
-            aria-label="AIFromBrazil — back to top"
+            aria-label="BuiltByNikolay — back to top"
             className="flex items-center justify-center w-8 h-8 rounded-full bg-[#2563EB] text-white text-[10px] font-bold tracking-wide [font-family:var(--font-heading)] hover:bg-[#1D4ED8] transition-colors duration-200"
           >
-            AFB
+            BBN
           </a>
 
           <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
@@ -235,10 +235,10 @@ export default function App() {
                 backgroundClip: 'text',
               }}
             >
-              AIFromBrazil
+              BuiltByNikolay
             </span>
             <span className="text-[11px] text-white/40 uppercase tracking-[0.35em] pl-0.5 [font-family:var(--font-heading)]">
-              {t.header.taglineAFB}
+              {t.header.taglineBBN}
             </span>
           </motion.div>
 
@@ -257,10 +257,10 @@ export default function App() {
                 backgroundClip: 'text',
               }}
             >
-              BuiltByNikolay
+              AIFromBrazil
             </span>
             <span className="text-[11px] text-white/40 uppercase tracking-[0.35em] pr-0.5 [font-family:var(--font-heading)]">
-              {t.header.taglineBBN}
+              {t.header.taglineAFB}
             </span>
           </motion.div>
         </div>
@@ -769,8 +769,8 @@ export default function App() {
       <footer className="max-w-6xl mx-auto mt-20 mb-8 px-6 py-8 border-t border-zinc-800/50">
         <div className="flex flex-col md:flex-row items-center justify-between gap-5">
           <div className="flex items-center gap-3">
-            <span aria-hidden="true" className="w-7 h-7 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-[10px] font-bold [font-family:var(--font-heading)] select-none">AFB</span>
-            <span className="text-zinc-500 text-sm [font-family:var(--font-heading)]">AIFromBrazil</span>
+            <span aria-hidden="true" className="w-7 h-7 rounded-full bg-[#2563EB] flex items-center justify-center text-white text-[10px] font-bold [font-family:var(--font-heading)] select-none">BBN</span>
+            <span className="text-zinc-500 text-sm [font-family:var(--font-heading)]">BuiltByNikolay</span>
           </div>
 
           <nav aria-label="Social links" className="flex items-center gap-5 text-sm text-zinc-600">
