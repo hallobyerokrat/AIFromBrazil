@@ -352,9 +352,9 @@ const pt: typeof de = {
       status: 'Ao vivo — 24,8K usuários',
     },
     byerokrat: {
-      desc: 'Assistente fiscal com IA para freelancers alemães — responde perguntas fiscais em linguagem simples, na hora.',
-      problem: 'Freelancers perdem horas pesquisando impostos, prazos e formulários.',
-      solution: 'Chat com IA que responde perguntas fiscais na hora em linguagem simples.',
+      desc: 'Assistente fiscal com IA para freelancers alemães — explica cartas do governo, gera faturas, rastreia prazos e responde perguntas por chat. Freemium: gratuito para começar, Pro a partir de €9,99/mês.',
+      problem: 'Freelancers e criativos na Alemanha perdem horas diárias com formulários fiscais, cartas do governo e prazos — muitas vezes sem entender o que é exigido.',
+      solution: 'Solução completa: scanner de documentos, verificação de elegibilidade KSK, gerador de faturas, rastreador de prazos com lembretes por e-mail, verificador de despesas, assistente EÜR e chat de IA ilimitado — tudo em um app.',
       status: 'Ao vivo',
     },
     roxi: {
@@ -363,9 +363,9 @@ const pt: typeof de = {
       solution: 'A IA responde na hora, verifica disponibilidade e agenda — sem intervenção humana.',
     },
     ceuDeBrincar: {
-      desc: 'Site de autora para Ana Souza de Magalhães — livros, biografia, portfólio.',
-      problem: 'Autoras precisam de presença online profissional, mas não têm conhecimento técnico.',
-      solution: 'Desenvolvido com ferramentas de IA, entregue no mesmo dia.',
+      desc: 'Portfólio de autora bilíngue (PT/DE) para Ana Souza de Magalhães — 3 livros, biografia, Amazon BR + Amazon DE + eBook. Integração PIX preparada, loja em planejamento.',
+      problem: 'Autora com três livros publicados e público crescente — mas sem presença online profissional e sem conhecimento técnico.',
+      solution: 'Site completo criado com ferramentas de IA: páginas de livros com efeitos 3D nas capas, integração com Amazon, configuração de pagamento PIX, textos legais completos (Impressum, privacidade, cancelamento) — ao vivo no mesmo dia.',
       status: 'Ao vivo — cliente',
     },
     assilee: {
