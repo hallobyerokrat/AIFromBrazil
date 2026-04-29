@@ -43,10 +43,17 @@ const de = {
     deployStatus: 'Bereit zum Deployen',
     problemLabel: 'Problem',
     solutionLabel: 'Lösung',
+    dareit: {
+      desc: '1vs1 Challenge-Plattform für Gamer — der Wetteinsatz ist Content. Verlierer laden Video-Beweis hoch. 24,8K User · 186K Challenges · 94% Abschlussrate.',
+      problem: 'Es gab keine Plattform, bei der Gaming-Challenges echte Verbindlichkeit hatten und automatisch viralen Content erzeugten.',
+      solution: 'Vollständige Plattform gebaut: ProofWall (Video-Pflicht), WagerCoins-System, Live-Streaming-Integration (Twitch/YouTube/TikTok), Anti-Betrugs-Mechanik & Community-Voting.',
+      status: 'Live — 24,8K User',
+    },
     byerokrat: {
-      desc: 'KI-Steuerassistent für deutsche Freelancer & Selbstständige — beantwortet Steuerfragen in einfacher Sprache, sofort.',
-      problem: 'Freelancer verschwenden Stunden mit Steuerrecherche, Fristen und Formularen.',
-      solution: 'KI-Chat beantwortet Steuerfragen sofort in einfacher Sprache.',
+      desc: 'KI-Steuerassistent für deutsche Freelancer — erklärt Behördenbriefe, generiert Rechnungen, trackt Fristen & beantwortet Steuerfragen per Chat. Freemium: kostenlos starten, Pro ab 9,99 €/Monat.',
+      problem: 'Freelancer und Kreative in Deutschland verlieren täglich Zeit mit Steuerformularen, Behördenbriefen und Abgabefristen — oft ohne zu verstehen, was von ihnen gefordert wird.',
+      solution: 'KI-Komplettlösung: Dokumenten-Scanner, KSK-Eignungscheck, Rechnungsgenerator, Fristentracker mit E-Mail-Erinnerung, Betriebsausgaben-Check, EÜR-Assistent und unbegrenzter KI-Chat — alles in einer App.',
+      status: 'Live',
     },
     roxi: {
       desc: 'WhatsApp-Bot für Terminbusiness — bucht, bestätigt, erinnert. 24/7. Vollautomatisch.',
@@ -54,9 +61,9 @@ const de = {
       solution: 'KI antwortet sofort, prüft Verfügbarkeit und bucht den Termin — ohne menschliches Zutun.',
     },
     ceuDeBrincar: {
-      desc: 'Autorenwebsite für Ana Souza de Magalhães — Bücher, Biografie, Portfolio.',
-      problem: 'Autoren brauchen eine professionelle Online-Präsenz, haben aber keine technischen Kenntnisse.',
-      solution: 'Mit KI-Tools entwickelt, am selben Tag geliefert.',
+      desc: 'Zweisprachiges (PT/DE) Autorenportfolio für Ana Souza de Magalhães — 3 Bücher, Biografie, Amazon BR + Amazon DE + eBook-Vertrieb. PIX-Zahlung integriert, Shop in Planung.',
+      problem: 'Autorin mit drei veröffentlichten Büchern und wachsender Reichweite — aber ohne professionelle Online-Präsenz und ohne technisches Know-how.',
+      solution: 'Komplette Website mit KI-Tools entwickelt: Buchseiten mit 3D-Cover-Effekten, Amazon-Integration, PIX-Zahlungsvorbereitung, vollständige Rechtstexte (Impressum, Datenschutz, Widerruf) — am selben Tag live.',
       status: 'Live — Kunde',
     },
     assilee: {
@@ -187,10 +194,17 @@ const en: typeof de = {
     deployStatus: 'Ready to deploy',
     problemLabel: 'Problem',
     solutionLabel: 'Solution',
+    dareit: {
+      desc: '1v1 challenge platform for gamers — stakes are content. Losers upload video proof. 24.8K users · 186K challenges · 94% completion rate.',
+      problem: 'No platform existed where gaming challenges had real accountability and automatically generated viral content.',
+      solution: 'Full platform built: ProofWall (mandatory video proof), WagerCoins system, live streaming integration (Twitch/YouTube/TikTok), anti-scam mechanics & community voting.',
+      status: 'Live — 24.8K users',
+    },
     byerokrat: {
-      desc: 'AI tax assistant for German freelancers & self-employed — answers tax questions in plain language, instantly.',
-      problem: 'Freelancers waste hours on tax research, deadlines, and forms.',
-      solution: 'AI chat that answers tax questions instantly in plain language.',
+      desc: 'AI tax assistant for German freelancers — explains government letters, generates invoices, tracks deadlines & answers tax questions via chat. Freemium: free to start, Pro from €9.99/month.',
+      problem: 'Freelancers and creatives in Germany waste hours daily on tax forms, government letters, and filing deadlines — often without understanding what is required of them.',
+      solution: 'Complete AI solution: document scanner, KSK eligibility check, invoice generator, deadline tracker with email reminders, expense checker, EÜR assistant, and unlimited AI chat — all in one app.',
+      status: 'Live',
     },
     roxi: {
       desc: 'WhatsApp bot for appointment businesses — books, confirms, reminds. 24/7. Fully automated.',
@@ -198,9 +212,9 @@ const en: typeof de = {
       solution: 'AI responds instantly, checks availability and books the appointment — without human involvement.',
     },
     ceuDeBrincar: {
-      desc: 'Author website for Ana Souza de Magalhães — books, bio, portfolio.',
-      problem: 'Authors need a professional web presence but lack technical skills.',
-      solution: 'Built with AI tools, delivered same day.',
+      desc: 'Bilingual (PT/DE) author portfolio for Ana Souza de Magalhães — 3 books, biography, Amazon BR + Amazon DE + eBook distribution. PIX payment integrated, shop in planning.',
+      problem: 'Author with three published books and a growing audience — but no professional online presence and no technical know-how.',
+      solution: 'Full website built with AI tools: book pages with 3D cover effects, Amazon integration, PIX payment setup, complete legal pages (Impressum, privacy, cancellation) — live the same day.',
       status: 'Live — client',
     },
     assilee: {
@@ -331,10 +345,17 @@ const pt: typeof de = {
     deployStatus: 'Pronto para publicar',
     problemLabel: 'Problema',
     solutionLabel: 'Solução',
+    dareit: {
+      desc: 'Plataforma de desafios 1v1 para gamers — as apostas são conteúdo. Perdedores enviam prova em vídeo. 24,8K usuários · 186K desafios · 94% de conclusão.',
+      problem: 'Não existia plataforma onde desafios de games tivessem responsabilidade real e gerassem conteúdo viral automaticamente.',
+      solution: 'Plataforma completa criada: ProofWall (prova em vídeo obrigatória), sistema WagerCoins, integração com live streaming (Twitch/YouTube/TikTok), mecânica anti-fraude e votação da comunidade.',
+      status: 'Ao vivo — 24,8K usuários',
+    },
     byerokrat: {
       desc: 'Assistente fiscal com IA para freelancers alemães — responde perguntas fiscais em linguagem simples, na hora.',
       problem: 'Freelancers perdem horas pesquisando impostos, prazos e formulários.',
       solution: 'Chat com IA que responde perguntas fiscais na hora em linguagem simples.',
+      status: 'Ao vivo',
     },
     roxi: {
       desc: 'Bot de WhatsApp para negócios de agendamento — agenda, confirma, lembra. 24/7. Totalmente automatizado.',
