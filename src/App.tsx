@@ -1,10 +1,10 @@
-import { motion, useMotionValue, useScroll, useSpring } from 'framer-motion'
+import { motion, useScroll } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLanguage } from './LanguageContext'
 import ReviewsSection from './components/ReviewsSection'
 
-function GrowingBranches() {
+function GeometricSucculents() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -15,144 +15,124 @@ function GrowingBranches() {
 
     let raf: number
 
-    interface GrowingTip {
-      x: number; y: number; angle: number
-      length: number; maxLength: number
-      width: number; depth: number
-    }
-    interface Thorn { x: number; y: number; angle: number; len: number }
-    interface Segment {
-      x1: number; y1: number; x2: number; y2: number
-      width: number; thorns: Thorn[]
+    interface Succulent {
+      cx: number; cy: number; radius: number
+      rotation: number; rotSpeed: number; opacity: number
     }
 
-    let segments: Segment[] = []
-    let tips: GrowingTip[] = []
-    let phase: 'growing' | 'holding' | 'fading' = 'growing'
-    let holdTimer = 0
-    let globalOpacity = 1
+    let plants: Succulent[] = []
 
-    const GROW_SPEED = 1.8
-    const MAX_DEPTH = 6
-    const BLUE = '#3B82F6'
-
-    const spawnRoot = (x: number, y: number, angle: number, maxLen: number) => {
-      tips.push({ x, y, angle, length: 0, maxLength: maxLen, width: 2, depth: 0 })
-    }
-
-    const init = () => {
-      segments = []
-      tips = []
-      phase = 'growing'
-      globalOpacity = 1
-      holdTimer = 0
+    const buildPlants = () => {
       const W = canvas.width
       const H = canvas.height
-      spawnRoot(W * 0.05, H, -Math.PI / 2 + 0.45, 130 + Math.random() * 60)
-      spawnRoot(W * 0.95, H, -Math.PI / 2 - 0.45, 120 + Math.random() * 60)
-      spawnRoot(W * 0.3,  H, -Math.PI / 2 + 0.2,  110 + Math.random() * 50)
-      spawnRoot(W * 0.7,  H, -Math.PI / 2 - 0.2,  110 + Math.random() * 50)
-      spawnRoot(0, H * 0.7, 0.35, 100 + Math.random() * 40)
-      spawnRoot(W, H * 0.75, Math.PI - 0.35, 100 + Math.random() * 40)
+      plants = [
+        { cx: W * 0.08,  cy: H * 0.15, radius: 110, rotation: 0,    rotSpeed: 0.00035, opacity: 0.55 },
+        { cx: W * 0.92,  cy: H * 0.1,  radius: 90,  rotation: 0.5,  rotSpeed: -0.0003, opacity: 0.5  },
+        { cx: W * 0.5,   cy: H * 0.92, radius: 120, rotation: 1.0,  rotSpeed: 0.00025, opacity: 0.45 },
+        { cx: W * 0.18,  cy: H * 0.78, radius: 70,  rotation: 0.8,  rotSpeed: -0.0004, opacity: 0.4  },
+        { cx: W * 0.85,  cy: H * 0.65, radius: 80,  rotation: 2.0,  rotSpeed: 0.0003,  opacity: 0.45 },
+        { cx: W * -0.02, cy: H * 0.45, radius: 95,  rotation: 1.5,  rotSpeed: -0.0002, opacity: 0.35 },
+        { cx: W * 1.02,  cy: H * 0.35, radius: 85,  rotation: 0.3,  rotSpeed: 0.00028, opacity: 0.35 },
+      ]
     }
 
     const resize = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
-      init()
+      buildPlants()
     }
     resize()
     window.addEventListener('resize', resize)
 
-    const makeThorns = (x1: number, y1: number, angle: number, len: number, width: number): Thorn[] => {
-      const count = Math.floor(len / 18)
-      return Array.from({ length: count }, (_, i) => {
-        const t = (i + 1) / (count + 1)
-        const side = i % 2 === 0 ? 1 : -1
-        return {
-          x: x1 + Math.cos(angle) * len * t,
-          y: y1 + Math.sin(angle) * len * t,
-          angle: angle + side * (Math.PI / 2 + 0.5),
-          len: Math.max(width * 6, 4),
-        }
-      })
+    const drawLeaf = (cx: number, cy: number, angle: number, innerR: number, outerR: number, halfWidth: number) => {
+      const tipX = cx + Math.cos(angle) * outerR
+      const tipY = cy + Math.sin(angle) * outerR
+      const perpA = angle + Math.PI / 2
+      const perpB = angle - Math.PI / 2
+      const base1X = cx + Math.cos(angle) * innerR + Math.cos(perpA) * halfWidth
+      const base1Y = cy + Math.sin(angle) * innerR + Math.sin(perpA) * halfWidth
+      const base2X = cx + Math.cos(angle) * innerR + Math.cos(perpB) * halfWidth
+      const base2Y = cy + Math.sin(angle) * innerR + Math.sin(perpB) * halfWidth
+      const mid1X = cx + Math.cos(angle) * (innerR + (outerR - innerR) * 0.5) + Math.cos(perpA) * halfWidth * 0.6
+      const mid1Y = cy + Math.sin(angle) * (innerR + (outerR - innerR) * 0.5) + Math.sin(perpA) * halfWidth * 0.6
+      const mid2X = cx + Math.cos(angle) * (innerR + (outerR - innerR) * 0.5) + Math.cos(perpB) * halfWidth * 0.6
+      const mid2Y = cy + Math.sin(angle) * (innerR + (outerR - innerR) * 0.5) + Math.sin(perpB) * halfWidth * 0.6
+
+      ctx.beginPath()
+      ctx.moveTo(base1X, base1Y)
+      ctx.lineTo(mid1X, mid1Y)
+      ctx.lineTo(tipX, tipY)
+      ctx.lineTo(mid2X, mid2Y)
+      ctx.lineTo(base2X, base2Y)
+      ctx.closePath()
+      ctx.stroke()
+
+      // Center vein line
+      ctx.beginPath()
+      ctx.moveTo(cx + Math.cos(angle) * innerR, cy + Math.sin(angle) * innerR)
+      ctx.lineTo(tipX, tipY)
+      ctx.stroke()
     }
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      if (phase === 'growing') {
-        const next: GrowingTip[] = []
-        for (const tip of tips) {
-          tip.length += GROW_SPEED
-          if (tip.length >= tip.maxLength) {
-            const tx = tip.x + Math.cos(tip.angle) * tip.maxLength
-            const ty = tip.y + Math.sin(tip.angle) * tip.maxLength
-            segments.push({
-              x1: tip.x, y1: tip.y, x2: tx, y2: ty,
-              width: tip.width,
-              thorns: makeThorns(tip.x, tip.y, tip.angle, tip.maxLength, tip.width),
-            })
-            if (tip.depth < MAX_DEPTH && tip.width > 0.35) {
-              const children = tip.depth < 2 ? 2 : (Math.random() > 0.35 ? 1 : 2)
-              for (let i = 0; i < children; i++) {
-                const spread = (Math.random() - 0.5) * 1.1
-                next.push({
-                  x: tx, y: ty,
-                  angle: tip.angle + spread,
-                  length: 0,
-                  maxLength: tip.maxLength * (0.45 + Math.random() * 0.3),
-                  width: tip.width * 0.58,
-                  depth: tip.depth + 1,
-                })
-              }
-            }
-          } else {
-            next.push(tip)
-          }
-        }
-        tips = next
-        if (tips.length === 0) { phase = 'holding'; holdTimer = 0 }
-      } else if (phase === 'holding') {
-        holdTimer++
-        if (holdTimer > 200) phase = 'fading'
-      } else {
-        globalOpacity -= 0.004
-        if (globalOpacity <= 0) init()
-      }
-
+    const drawSucculent = (p: Succulent) => {
+      const { cx, cy, radius, rotation, opacity } = p
       ctx.save()
-      ctx.globalAlpha = Math.max(0, globalOpacity) * 0.65
+      ctx.globalAlpha = opacity
+      ctx.shadowBlur = 0
+      ctx.strokeStyle = '#3B82F6'
       ctx.lineCap = 'round'
+      ctx.lineJoin = 'round'
 
-      const drawSeg = (x1: number, y1: number, x2: number, y2: number, width: number, thorns: Thorn[]) => {
-        ctx.shadowBlur = 14
-        ctx.shadowColor = 'rgba(59,130,246,0.55)'
-        ctx.strokeStyle = BLUE
-        ctx.lineWidth = width
-        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke()
-        ctx.lineWidth = width * 0.55
-        ctx.shadowBlur = 8
-        for (const t of thorns) {
-          ctx.beginPath()
-          ctx.moveTo(t.x, t.y)
-          ctx.lineTo(t.x + Math.cos(t.angle) * t.len, t.y + Math.sin(t.angle) * t.len)
-          ctx.stroke()
-        }
+      // Layer 0 — innermost: 6 leaves
+      const l0Count = 6
+      ctx.lineWidth = 0.8
+      for (let i = 0; i < l0Count; i++) {
+        const angle = rotation + (i / l0Count) * Math.PI * 2
+        drawLeaf(cx, cy, angle, radius * 0.08, radius * 0.32, radius * 0.1)
       }
 
-      for (const s of segments) drawSeg(s.x1, s.y1, s.x2, s.y2, s.width, s.thorns)
-      for (const tip of tips) {
-        const tx = tip.x + Math.cos(tip.angle) * tip.length
-        const ty = tip.y + Math.sin(tip.angle) * tip.length
-        drawSeg(tip.x, tip.y, tx, ty, tip.width, [])
+      // Layer 1 — middle: 9 leaves
+      const l1Count = 9
+      ctx.lineWidth = 0.7
+      const l1Offset = rotation + Math.PI / l1Count
+      for (let i = 0; i < l1Count; i++) {
+        const angle = l1Offset + (i / l1Count) * Math.PI * 2
+        drawLeaf(cx, cy, angle, radius * 0.28, radius * 0.62, radius * 0.13)
       }
+
+      // Layer 2 — outermost: 12 leaves
+      const l2Count = 12
+      ctx.lineWidth = 0.6
+      const l2Offset = rotation + Math.PI / l2Count * 0.5
+      for (let i = 0; i < l2Count; i++) {
+        const angle = l2Offset + (i / l2Count) * Math.PI * 2
+        drawLeaf(cx, cy, angle, radius * 0.56, radius * 0.98, radius * 0.12)
+      }
+
+      // Center dot
+      ctx.lineWidth = 1.2
+      ctx.beginPath()
+      ctx.arc(cx, cy, radius * 0.06, 0, Math.PI * 2)
+      ctx.stroke()
 
       ctx.restore()
-      raf = requestAnimationFrame(draw)
     }
 
-    draw()
+    let lastTime = 0
+    const INTERVAL = 1000 / 30 // 30fps cap
+
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw)
+      if (now - lastTime < INTERVAL) return
+      lastTime = now
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      for (const p of plants) {
+        p.rotation += p.rotSpeed
+        drawSucculent(p)
+      }
+    }
+
+    raf = requestAnimationFrame(draw)
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
@@ -225,18 +205,8 @@ function LangDropdown() {
 
 export default function App() {
   const { t, lang } = useLanguage()
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-  const springX = useSpring(mouseX, { stiffness: 100, damping: 22 })
-  const springY = useSpring(mouseY, { stiffness: 100, damping: 22 })
   const { scrollY } = useScroll()
   const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const move = (e: MouseEvent) => { mouseX.set(e.clientX); mouseY.set(e.clientY) }
-    window.addEventListener('mousemove', move)
-    return () => window.removeEventListener('mousemove', move)
-  }, [mouseX, mouseY])
 
   useEffect(() => scrollY.on('change', v => setScrolled(v > 60)), [scrollY])
 
@@ -246,18 +216,11 @@ export default function App() {
 
   return (
     <div className="relative text-white min-h-screen overflow-x-hidden">
-      <GrowingBranches />
+      <GeometricSucculents />
 
       {/* Gradient orbs */}
       <div aria-hidden="true" className="pointer-events-none fixed top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-[#2563EB] opacity-[0.05] blur-[140px] -z-20" />
       <div aria-hidden="true" className="pointer-events-none fixed bottom-[-200px] left-[-100px] w-[500px] h-[500px] rounded-full bg-[#1D4ED8] opacity-[0.04] blur-[120px] -z-20" />
-
-      {/* Cursor glow */}
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none fixed w-[380px] h-[380px] rounded-full bg-[#2563EB] opacity-[0.08] blur-[90px] -z-20"
-        style={{ left: springX, top: springY, translateX: '-50%', translateY: '-50%' }}
-      />
 
       {/* ── NAV ─────────────────────────────────────────────────── */}
       <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4 pointer-events-none">
