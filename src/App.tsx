@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from './LanguageContext'
 import ReviewsSection from './components/ReviewsSection'
 
-function DotGrid() {
+function GrowingBranches() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -14,36 +14,141 @@ function DotGrid() {
     if (!ctx) return
 
     let raf: number
-    let t = 0
+
+    interface GrowingTip {
+      x: number; y: number; angle: number
+      length: number; maxLength: number
+      width: number; depth: number
+    }
+    interface Thorn { x: number; y: number; angle: number; len: number }
+    interface Segment {
+      x1: number; y1: number; x2: number; y2: number
+      width: number; thorns: Thorn[]
+    }
+
+    let segments: Segment[] = []
+    let tips: GrowingTip[] = []
+    let phase: 'growing' | 'holding' | 'fading' = 'growing'
+    let holdTimer = 0
+    let globalOpacity = 1
+
+    const GROW_SPEED = 1.8
+    const MAX_DEPTH = 6
+    const BLUE = '#3B82F6'
+
+    const spawnRoot = (x: number, y: number, angle: number, maxLen: number) => {
+      tips.push({ x, y, angle, length: 0, maxLength: maxLen, width: 2, depth: 0 })
+    }
+
+    const init = () => {
+      segments = []
+      tips = []
+      phase = 'growing'
+      globalOpacity = 1
+      holdTimer = 0
+      const W = canvas.width
+      const H = canvas.height
+      spawnRoot(W * 0.05, H, -Math.PI / 2 + 0.45, 130 + Math.random() * 60)
+      spawnRoot(W * 0.95, H, -Math.PI / 2 - 0.45, 120 + Math.random() * 60)
+      spawnRoot(W * 0.3,  H, -Math.PI / 2 + 0.2,  110 + Math.random() * 50)
+      spawnRoot(W * 0.7,  H, -Math.PI / 2 - 0.2,  110 + Math.random() * 50)
+      spawnRoot(0, H * 0.7, 0.35, 100 + Math.random() * 40)
+      spawnRoot(W, H * 0.75, Math.PI - 0.35, 100 + Math.random() * 40)
+    }
 
     const resize = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+      init()
     }
     resize()
     window.addEventListener('resize', resize)
 
-    const SPACING = 36
-    const BASE_OPACITY = 0.15
-    const PULSE_SPEED = 0.0003
+    const makeThorns = (x1: number, y1: number, angle: number, len: number, width: number): Thorn[] => {
+      const count = Math.floor(len / 18)
+      return Array.from({ length: count }, (_, i) => {
+        const t = (i + 1) / (count + 1)
+        const side = i % 2 === 0 ? 1 : -1
+        return {
+          x: x1 + Math.cos(angle) * len * t,
+          y: y1 + Math.sin(angle) * len * t,
+          angle: angle + side * (Math.PI / 2 + 0.5),
+          len: Math.max(width * 6, 4),
+        }
+      })
+    }
 
     const draw = () => {
-      if (!canvas || !ctx) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
-      const cols = Math.ceil(canvas.width / SPACING) + 1
-      const rows = Math.ceil(canvas.height / SPACING) + 1
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols; c++) {
-          const wave = Math.sin(c * 0.4 + r * 0.4 - t) * 0.5 + 0.5
-          const opacity = BASE_OPACITY * (0.3 + 0.7 * wave)
-          const radius = 0.8 + wave * 0.5
+
+      if (phase === 'growing') {
+        const next: GrowingTip[] = []
+        for (const tip of tips) {
+          tip.length += GROW_SPEED
+          if (tip.length >= tip.maxLength) {
+            const tx = tip.x + Math.cos(tip.angle) * tip.maxLength
+            const ty = tip.y + Math.sin(tip.angle) * tip.maxLength
+            segments.push({
+              x1: tip.x, y1: tip.y, x2: tx, y2: ty,
+              width: tip.width,
+              thorns: makeThorns(tip.x, tip.y, tip.angle, tip.maxLength, tip.width),
+            })
+            if (tip.depth < MAX_DEPTH && tip.width > 0.35) {
+              const children = tip.depth < 2 ? 2 : (Math.random() > 0.35 ? 1 : 2)
+              for (let i = 0; i < children; i++) {
+                const spread = (Math.random() - 0.5) * 1.1
+                next.push({
+                  x: tx, y: ty,
+                  angle: tip.angle + spread,
+                  length: 0,
+                  maxLength: tip.maxLength * (0.45 + Math.random() * 0.3),
+                  width: tip.width * 0.58,
+                  depth: tip.depth + 1,
+                })
+              }
+            }
+          } else {
+            next.push(tip)
+          }
+        }
+        tips = next
+        if (tips.length === 0) { phase = 'holding'; holdTimer = 0 }
+      } else if (phase === 'holding') {
+        holdTimer++
+        if (holdTimer > 200) phase = 'fading'
+      } else {
+        globalOpacity -= 0.004
+        if (globalOpacity <= 0) init()
+      }
+
+      ctx.save()
+      ctx.globalAlpha = Math.max(0, globalOpacity) * 0.65
+      ctx.lineCap = 'round'
+
+      const drawSeg = (x1: number, y1: number, x2: number, y2: number, width: number, thorns: Thorn[]) => {
+        ctx.shadowBlur = 14
+        ctx.shadowColor = 'rgba(59,130,246,0.55)'
+        ctx.strokeStyle = BLUE
+        ctx.lineWidth = width
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke()
+        ctx.lineWidth = width * 0.55
+        ctx.shadowBlur = 8
+        for (const t of thorns) {
           ctx.beginPath()
-          ctx.arc(c * SPACING, r * SPACING, radius, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(59,130,246,${opacity})`
-          ctx.fill()
+          ctx.moveTo(t.x, t.y)
+          ctx.lineTo(t.x + Math.cos(t.angle) * t.len, t.y + Math.sin(t.angle) * t.len)
+          ctx.stroke()
         }
       }
-      t += PULSE_SPEED * 16
+
+      for (const s of segments) drawSeg(s.x1, s.y1, s.x2, s.y2, s.width, s.thorns)
+      for (const tip of tips) {
+        const tx = tip.x + Math.cos(tip.angle) * tip.length
+        const ty = tip.y + Math.sin(tip.angle) * tip.length
+        drawSeg(tip.x, tip.y, tx, ty, tip.width, [])
+      }
+
+      ctx.restore()
       raf = requestAnimationFrame(draw)
     }
 
@@ -141,7 +246,7 @@ export default function App() {
 
   return (
     <div className="relative text-white min-h-screen overflow-x-hidden">
-      <DotGrid />
+      <GrowingBranches />
 
       {/* Gradient orbs */}
       <div aria-hidden="true" className="pointer-events-none fixed top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-[#2563EB] opacity-[0.05] blur-[140px] -z-20" />
@@ -463,7 +568,7 @@ export default function App() {
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-[11px] text-[#3B82F6] uppercase tracking-[0.2em] [font-family:var(--font-heading)]">{t.work.featuredProduct}</span>
                   <span className="flex items-center gap-1.5 text-[10px] text-zinc-500 uppercase tracking-[0.15em]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" aria-hidden="true" />{t.work.deployStatus}
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" aria-hidden="true" />{t.work.liveStatus}
                   </span>
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 [font-family:var(--font-heading)] group-hover:text-[#60A5FA] transition-colors duration-300">KI-Sekretärin „Roxi"</h3>
@@ -539,7 +644,7 @@ export default function App() {
         </motion.article>
 
         {/* Secondary cards */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {[
             {
               title: 'Ana Souza — Website',
@@ -551,17 +656,6 @@ export default function App() {
               problem: t.work.ceuDeBrincar.problem,
               solution: t.work.ceuDeBrincar.solution,
               href: 'https://ana-souza-website.vercel.app',
-            },
-            {
-              title: 'Assilee TV',
-              img: '/assileetv.webp',
-              tech: 'Shopify · Amazon · Print-on-Demand',
-              statusColor: 'bg-amber-400',
-              status: t.work.assilee.status,
-              desc: t.work.assilee.desc,
-              problem: t.work.assilee.problem,
-              solution: t.work.assilee.solution,
-              href: undefined,
             },
             {
               title: 'Byerokrat',
@@ -796,6 +890,9 @@ export default function App() {
           </div>
 
           <nav aria-label="Social links" className="flex items-center gap-5 text-sm text-zinc-600">
+            <a href="https://www.tiktok.com/@danielnikolay759" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors duration-200">TikTok</a>
+            <a href="https://www.instagram.com/dn_wayne24/" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors duration-200">Instagram</a>
+            <a href="https://www.linkedin.com/in/daniel-nikolay-gr%C3%BCnder-byerokrat-23b8123b9/" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors duration-200">LinkedIn</a>
             <a href="https://x.com/Byerokrat" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 transition-colors duration-200">Twitter / X</a>
           </nav>
 
