@@ -1,5 +1,5 @@
 import { Link, useParams, Navigate } from 'react-router-dom'
-import { blogPosts, ContentBlock } from '../data/blogPosts'
+import { blogPosts, type ContentBlock } from '../data/blogPosts'
 
 function renderBlock(block: ContentBlock, i: number) {
   switch (block.type) {
