@@ -50,7 +50,7 @@ export const blogPosts: BlogPostData[] = [
 
       { type: 'h2', text: 'Wie der Einstieg aussieht' },
       { type: 'p', text: 'Du brauchst kein technisches Wissen. Du brauchst nur eine WhatsApp Business Nummer — die hast du wahrscheinlich schon. Ich richte alles ein, teste es mit dir, und du kannst in wenigen Tagen loslegen.' },
-      { type: 'callout', text: 'Du willst das für deinen Salon testen? Schreib mir einfach — ich zeige dir in einem kurzen Gespräch was möglich ist und was es kostet. Kein Agentur-Overhead, kein langer Vertrag.' },
+      { type: 'callout', text: 'Neugierig geworden? Ich zeige dir kostenlos wie ein Bot für deinen Salon konkret aussehen würde — personalisiert auf deine Anfragen, nicht irgendein Standard-Beispiel. Einfach kurz schreiben.' },
     ],
   },
 
@@ -96,7 +96,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'p', text: 'Eine Agentur nimmt für eine einfache Unternehmenswebsite 2.000–8.000€. Das ist für viele Kleinunternehmer unrealistisch.' },
       { type: 'p', text: 'Mit modernen KI-Tools und effizienter Entwicklung lässt sich das erheblich günstiger umsetzen — ohne dass Qualität oder Design leiden. Ich baue Websites für Kleinunternehmer, die in wenigen Tagen fertig sind und tatsächlich Kunden bringen.' },
 
-      { type: 'callout', text: 'Kein Online-Auftritt oder eine veraltete Seite? Schreib mir kurz — ich schaue mir an was du brauchst und was realistisch ist. Kein Verkaufsgespräch, einfach ein ehrlicher Blick.' },
+      { type: 'callout', text: 'Hast du Fragen — oder bist du einfach neugierig wie das bei dir aussehen könnte? Ich freue mich über jede Nachricht und helfe dir gerne weiter, egal wo du gerade stehst.' },
     ],
   },
 
@@ -140,7 +140,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'h2', text: 'Einrichtung ohne technisches Wissen' },
       { type: 'p', text: 'Du musst nichts installieren, nichts programmieren, nichts konfigurieren. Du brauchst nur deine WhatsApp Business Nummer. Ich richte alles ein, erkläre dir in einem kurzen Call wie es funktioniert, und du kannst in wenigen Tagen loslegen.' },
 
-      { type: 'callout', text: 'Interessiert? Ich zeige dir live wie die KI-Sekretärin auf typische Handwerker-Anfragen antwortet. Einfach melden — kein Pitch, einfach eine Demo.' },
+      { type: 'callout', text: 'Klingt das interessant? Ich zeige dir kostenlos wie eine KI-Sekretärin auf echte Anfragen aus deinem Handwerksbetrieb antwortet — personalisiert, nicht irgendein Demo-Text. Einfach kurz schreiben.' },
     ],
   },
 
@@ -184,7 +184,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'h2', text: 'Was es kostet' },
       { type: 'p', text: 'Ich baue gerade mein Portfolio auf und arbeite derzeit zu Pilotpreisen, die erheblich unter Agentur-Preisen liegen. Dafür zeige ich die fertigen Projekte als Referenz. Ein faires Tauschgeschäft.' },
 
-      { type: 'callout', text: 'Kein Online-Auftritt oder eine Seite die nicht mehr zu deinem Betrieb passt? Schreib mir kurz was du machst — ich schau mir das an und sag dir ehrlich was sinnvoll ist und was es kostet.' },
+      { type: 'callout', text: 'Du fragst dich ob das auch für dein Business funktionieren würde? Schreib mir kurz was du machst — ich schaue mir das gerne an und gebe dir eine ehrliche Einschätzung. Ich freue mich über deine Nachricht.' },
     ],
   },
 
@@ -242,7 +242,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'p', text: 'Wenn du WhatsApp Business noch nicht verwendest: Jetzt herunterladen und einrichten. Begrüßungsnachricht und Abwesenheitsnachricht hinterlegen. Das dauert 10 Minuten und macht sofort einen Unterschied.' },
       { type: 'p', text: 'Wenn du schon WhatsApp Business nutzt aber merkst, dass Anfragen verloren gehen: Dann ist ein Bot der nächste sinnvolle Schritt.' },
 
-      { type: 'callout', text: 'Willst du wissen ob ein WhatsApp Bot für dein Business Sinn macht? Ich berate dich kurz und kostenlos — und sage dir ehrlich, ob sich das lohnt oder ob die Bordmittel reichen.' },
+      { type: 'callout', text: 'Du willst sehen wie das für dein Business konkret aussehen würde? Ich zeige dir kostenlos eine personalisierte Demo — damit du nicht raten musst, sondern es einfach siehst. Einfach kurz schreiben.' },
     ],
   },
 
@@ -283,7 +283,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'h2', text: 'Was ein solcher Bot kostet' },
       { type: 'p', text: 'Im Vergleich zu einem Notdienst-Anrufbeantworter oder einer Telefonzentrale ist ein WhatsApp Bot günstiger und effizienter. Wenn er dir auch nur einen zusätzlichen Notfall-Auftrag pro Woche sichert — bei typischen Sätzen von 150–300€ für Notdienste — hat er sich in einem Monat mehrfach amortisiert.' },
 
-      { type: 'callout', text: 'Ich richte WhatsApp Bots für Handwerksbetriebe ein — inklusive Notfall-Erkennung und Weiterleitung. Wenn du wissen willst was das für deinen Betrieb kostet, meld dich einfach.' },
+      { type: 'callout', text: 'Neugierig wie das für deinen Betrieb konkret aussehen würde? Ich zeige dir kostenlos eine personalisierte Demo — mit echten Beispiel-Nachrichten aus dem Klempner-Alltag. Einfach kurz schreiben.' },
     ],
   },
 
@@ -325,7 +325,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'p', text: 'SEO braucht Zeit. Die ersten Ergebnisse siehst du in der Regel nach 4–8 Wochen. Aber: Wenn du heute anfängst, bist du in 2 Monaten sichtbar. Wenn du nichts tust, bist du auch in 2 Monaten noch unsichtbar.' },
       { type: 'p', text: 'Eine professionell aufgebaute Website mit lokalem SEO kann dir dauerhaft 3–8 Neukunden pro Monat bringen — ohne dass du dafür Geld für Anzeigen ausgibst.' },
 
-      { type: 'callout', text: 'Ich baue Websites für Friseursalons, die bei Google gefunden werden — inklusive Google My Business Optimierung und lokaler SEO-Grundlage. Wenn du wissen willst was das kostet, schreib mir einfach.' },
+      { type: 'callout', text: 'Hast du Fragen zur Website oder zur Google-Sichtbarkeit? Ich freue mich über deine Nachricht und helfe dir gerne weiter — egal ob du konkrete Pläne hast oder einfach nur mehr wissen möchtest.' },
     ],
   },
 
@@ -367,7 +367,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'p', text: 'Ein WhatsApp Bot muss nicht komplex sein. Für einen Elektrikerbetrieb reicht oft eine einfache Version: Begrüßung, Notfall-Erkennung, Infos sammeln, weiterleiten. Das ist in wenigen Tagen eingerichtet und danach läuft es.' },
       { type: 'p', text: 'Die laufenden Kosten liegen weit unter dem Umsatz, den ein einziger zusätzlicher Auftrag pro Woche bringt. Bei typischen Stundensätzen von 80–120€ plus Material rechnet sich der Bot sehr schnell.' },
 
-      { type: 'callout', text: 'Ich richte WhatsApp Bots für Elektrikerbetriebe ein — mit Notfall-Erkennung und automatischer Qualifizierung. Wenn du wissen willst was das für deinen Betrieb bedeutet, meld dich kurz.' },
+      { type: 'callout', text: 'Willst du sehen wie ein Bot auf echte Anfragen aus deinem Elektrikerbetrieb antwortet? Ich zeige dir das kostenlos und personalisiert — nicht irgendein Beispiel, sondern dein Betrieb, deine Anfragen. Einfach kurz schreiben.' },
     ],
   },
 
@@ -408,7 +408,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'p', text: 'Nicht jeder Barbier will ein reines Buchungssystem. Viele leben von Walk-ins und Stammkunden. Ein Bot muss das nicht ersetzen — er ergänzt es. Er managt die digitalen Anfragen, während du weiterhin spontane Kunden begrüßen kannst.' },
       { type: 'p', text: 'Stammkunden können sogar einen eigenen schnellen Buchungspfad bekommen: Einfach "Termin" schreiben und der Bot schlägt automatisch den nächsten freien Slot vor — ohne Fragen, weil der Bot bereits weiß was der Kunde normalerweise bucht.' },
 
-      { type: 'callout', text: 'Ich baue WhatsApp Bots für Barbershops — mit Wartelisten-Funktion, Terminerinnerungen und No-Show-Reduktion. Schreib mir wenn du wissen willst was das für deinen Shop bedeutet.' },
+      { type: 'callout', text: 'Willst du sehen wie ein Bot Buchungen und Wartelisten für deinen Barbershop managt? Ich zeige dir kostenlos eine personalisierte Demo — damit du genau weißt was deine Kunden sehen würden. Einfach kurz schreiben.' },
     ],
   },
 
@@ -448,7 +448,7 @@ export const blogPosts: BlogPostData[] = [
       { type: 'h2', text: 'Was eine gute Klempner-Website kostet — und was sie bringt' },
       { type: 'p', text: 'Eine professionelle Website mit lokalem SEO ist eine Investition, keine Ausgabe. Wenn sie dir auch nur zwei zusätzliche Aufträge pro Monat bringt — bei einem durchschnittlichen Auftragswert von 200–500€ — hat sie sich in wenigen Monaten amortisiert. Und dann arbeitet sie weiter für dich, jeden Tag, ohne zusätzliche Kosten.' },
 
-      { type: 'callout', text: 'Ich baue Klempner-Websites die bei Google gefunden werden — mit lokaler SEO, Notdienst-Optimierung und Google My Business Setup. Wenn du wissen willst was das kostet, schreib mir.' },
+      { type: 'callout', text: 'Du willst mehr lokale Kunden über Google gewinnen und weißt nicht wo du anfangen sollst? Ich helfe dir gerne weiter — schreib mir einfach, ich schaue mir deine Situation an und wir finden gemeinsam den richtigen Weg.' },
     ],
   },
 ]
