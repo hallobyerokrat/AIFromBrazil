@@ -245,4 +245,210 @@ export const blogPosts: BlogPostData[] = [
       { type: 'callout', text: 'Willst du wissen ob ein WhatsApp Bot für dein Business Sinn macht? Ich berate dich kurz und kostenlos — und sage dir ehrlich, ob sich das lohnt oder ob die Bordmittel reichen.' },
     ],
   },
+
+  // --- Artikel 6 ---
+  {
+    slug: 'whatsapp-bot-klempner',
+    title: 'WhatsApp Bot für Klempner: Notfälle und Termine automatisch beantworten',
+    description: 'Ein Wasserrohrbruch um 23 Uhr — wer als erstes antwortet, bekommt den Auftrag. Wie ein WhatsApp Bot deinen Klempnerbetrieb rund um die Uhr erreichbar macht.',
+    date: '2. Mai 2026',
+    readTime: '5 min',
+    content: [
+      { type: 'p', text: 'Es ist 23:15 Uhr. Irgendwo in der Stadt platzt gerade ein Wasserrohr. Der Hausbesitzer greift zum Handy, tippt "Klempner Notfall" und schreibt den ersten drei Ergebnissen eine WhatsApp. Wer zuerst antwortet, bekommt den Auftrag. Wer schläft, verliert ihn.' },
+      { type: 'p', text: 'Klempner gehören zu den wenigen Branchen, in denen Kunden buchstäblich keine Zeit haben zu warten. Und genau das macht einen automatischen WhatsApp-Bot für Klempnerbetriebe so wertvoll.' },
+
+      { type: 'h2', text: 'Warum Notfall-Anfragen so wichtig sind' },
+      { type: 'p', text: 'Ein normaler Sanitärauftrag — eine neue Armatur, ein verstopfter Abfluss — kann bis morgen warten. Ein Rohrbruch, eine defekte Heizung im Winter oder ein verstopftes Abwassersystem nicht. Diese Notfall-Aufträge sind die lukrativsten: höhere Stundensätze, keine Preis-Diskussionen, sofortige Beauftragung.' },
+      { type: 'p', text: 'Das Problem: Genau diese Kunden rufen oft nicht an — sie schreiben. Und wenn du nachts nicht antwortest, googeln sie weiter. Ein Konkurrent mit automatischer Antwort gewinnt den Auftrag, der eigentlich deiner hätte sein können.' },
+
+      { type: 'h2', text: 'Was ein WhatsApp Bot für Klempner leistet' },
+      { type: 'p', text: 'Ein gut eingerichteter Bot erkennt den Unterschied zwischen einer normalen Terminanfrage und einem echten Notfall — und reagiert entsprechend.' },
+      { type: 'ul', items: [
+        'Sofortige Antwort rund um die Uhr — auch nachts und am Wochenende',
+        'Notfall-Erkennung: Bei "Rohrbruch", "Überschwemmung" oder "Heizung aus" kommt eine andere Antwort als bei normalen Anfragen',
+        'Dich direkt per SMS oder Anruf benachrichtigen wenn ein echter Notfall reinkommt',
+        'Öffnungszeiten, Notdienst-Preise und Einzugsgebiet automatisch mitteilen',
+        'Terminanfragen für normale Aufträge aufnehmen und in deinen Kalender eintragen',
+        'Bilder vom Schaden anfordern damit du vor dem Termin weißt was dich erwartet',
+      ]},
+
+      { type: 'h2', text: 'Der Unterschied zu einer normalen Abwesenheitsnachricht' },
+      { type: 'p', text: 'Eine Abwesenheitsnachricht sagt: "Ich bin gerade nicht erreichbar." Ein Bot sagt: "Ich bin da. Was kann ich für dich tun?" Das ist ein riesiger Unterschied — psychologisch und praktisch.' },
+      { type: 'p', text: 'Wenn ein Kunde um 23 Uhr in einer Notlage ist und eine Abwesenheitsnachricht bekommt, sucht er weiter. Wenn er eine strukturierte Antwort bekommt — "Beschreib bitte kurz was passiert ist, wir melden uns dringend bei dir" — bleibt er bei dir. Er hat das Gefühl, dass jemand da ist.' },
+
+      { type: 'h2', text: 'Normale Termine: Auch hier spart der Bot Zeit' },
+      { type: 'p', text: 'Neben Notfällen gibt es die normalen Aufträge: Neue Armatur einbauen, Heizung warten, Badezimmer sanieren. Hier kommen täglich Anfragen rein — Preisfragen, Terminwünsche, Rückfragen zu deinen Leistungen.' },
+      { type: 'p', text: 'Ein Bot kann diese Anfragen automatisch qualifizieren: Was braucht der Kunde? Wann soll es gemacht werden? In welchem Stadtgebiet? So kommst du zum Telefonat oder zum Termin bereits mit allen wichtigen Infos — statt erst 10 Minuten lang die Grundlagen abzuklären.' },
+
+      { type: 'h2', text: 'Was ein solcher Bot kostet' },
+      { type: 'p', text: 'Im Vergleich zu einem Notdienst-Anrufbeantworter oder einer Telefonzentrale ist ein WhatsApp Bot günstiger und effizienter. Wenn er dir auch nur einen zusätzlichen Notfall-Auftrag pro Woche sichert — bei typischen Sätzen von 150–300€ für Notdienste — hat er sich in einem Monat mehrfach amortisiert.' },
+
+      { type: 'callout', text: 'Ich richte WhatsApp Bots für Handwerksbetriebe ein — inklusive Notfall-Erkennung und Weiterleitung. Wenn du wissen willst was das für deinen Betrieb kostet, meld dich einfach.' },
+    ],
+  },
+
+  // --- Artikel 7 ---
+  {
+    slug: 'website-friseure',
+    title: 'Website für Friseure: So buchst du mehr Termine über Google',
+    description: 'Instagram reicht nicht. Wer bei Google nicht gefunden wird, verliert täglich Neukunden. Warum Friseure eine eigene Website brauchen — und was drauf stehen muss.',
+    date: '2. Mai 2026',
+    readTime: '5 min',
+    content: [
+      { type: 'p', text: 'Dein Instagram-Profil sieht toll aus. Schöne Vorher-Nachher-Bilder, regelmäßige Stories, ein paar Hundert Follower. Und trotzdem ist der Kalender nicht voll. Das Problem: Instagram bringt dir Likes — aber nicht unbedingt Kunden, die aktiv nach einem Friseur in deiner Stadt suchen.' },
+      { type: 'p', text: 'Der entscheidende Kanal für Neukunden heißt Google. Und für Google brauchst du eine eigene Website.' },
+
+      { type: 'h2', text: 'Wie Kunden heute einen Friseur suchen' },
+      { type: 'p', text: 'Jemand zieht in eine neue Stadt. Jemand ist mit seinem Friseur unzufrieden. Jemand sucht einen Barber für seinen Sohn. In allen drei Fällen passiert dasselbe: Sie öffnen Google und tippen "Friseur [Stadtname]" oder "Friseur in meiner Nähe".' },
+      { type: 'p', text: 'Was sehen sie? Die ersten drei Google Maps-Einträge — und die erste Seite der normalen Suchergebnisse. Wenn du dort nicht auftauchst, existierst du für diesen potenziellen Kunden nicht. Nicht weil du schlecht bist, sondern weil du nicht sichtbar bist.' },
+
+      { type: 'h2', text: 'Was eine gute Friseur-Website leisten muss' },
+      { type: 'p', text: 'Eine Friseur-Website ist kein Kunstprojekt. Sie hat eine einzige Aufgabe: Den Besucher so schnell wie möglich zum Termin bringen. Dafür braucht sie genau diese Dinge:' },
+      { type: 'ul', items: [
+        'Deinen genauen Standort mit eingebetteter Google-Karte',
+        'Deine Öffnungszeiten — aktuell und gut sichtbar',
+        'Deine Leistungen mit Preisen (Kunden wollen wissen was sie erwartet)',
+        'Echte Fotos deiner Arbeit — kein Stock-Material',
+        'Einen klaren Call-to-Action: "Jetzt Termin buchen" oder "WhatsApp schreiben"',
+        'Kundenbewertungen — am besten direkt von Google eingebunden',
+      ]},
+
+      { type: 'h2', text: 'Google My Business: Der erste Schritt vor der Website' },
+      { type: 'p', text: 'Bevor du überhaupt eine Website brauchst, solltest du deinen Google My Business-Eintrag vollständig ausfüllen. Das ist kostenlos und bringt dich in die lokalen Suchergebnisse. Aber: Ein vollständiger Eintrag allein reicht nicht — du brauchst auch eine Website, auf die Google verlinken kann.' },
+      { type: 'p', text: 'Salons mit einer eigenen Website ranken in den lokalen Ergebnissen deutlich besser als solche ohne. Google interpretiert eine fehlende Website als Zeichen dafür, dass das Business möglicherweise inaktiv oder nicht professionell ist.' },
+
+      { type: 'h2', text: 'Was Instagram nicht ersetzen kann' },
+      { type: 'p', text: 'Instagram ist gut für Inspiration und für Menschen, die dir bereits folgen. Aber Instagram funktioniert nur bei aktiven Nutzern — und du hast keinen Einfluss darauf, wer deinen Content sieht. Der Algorithmus entscheidet.' },
+      { type: 'p', text: 'Google funktioniert anders: Jemand hat aktiv eine Absicht ("Ich suche einen Friseur") und sucht danach. Das ist der wertvollste Moment — und genau dort musst du sichtbar sein. Eine Website ist dein Hebel.' },
+
+      { type: 'h2', text: 'Wie schnell du Ergebnisse siehst' },
+      { type: 'p', text: 'SEO braucht Zeit. Die ersten Ergebnisse siehst du in der Regel nach 4–8 Wochen. Aber: Wenn du heute anfängst, bist du in 2 Monaten sichtbar. Wenn du nichts tust, bist du auch in 2 Monaten noch unsichtbar.' },
+      { type: 'p', text: 'Eine professionell aufgebaute Website mit lokalem SEO kann dir dauerhaft 3–8 Neukunden pro Monat bringen — ohne dass du dafür Geld für Anzeigen ausgibst.' },
+
+      { type: 'callout', text: 'Ich baue Websites für Friseursalons, die bei Google gefunden werden — inklusive Google My Business Optimierung und lokaler SEO-Grundlage. Wenn du wissen willst was das kostet, schreib mir einfach.' },
+    ],
+  },
+
+  // --- Artikel 8 ---
+  {
+    slug: 'whatsapp-bot-elektriker',
+    title: 'WhatsApp Bot für Elektriker: Anfragen außerhalb der Arbeitszeit beantworten',
+    description: 'Elektriker bekommen viele Anfragen abends und am Wochenende — genau dann wenn sie nicht im Büro sind. So beantwortet ein Bot die Anfragen für dich.',
+    date: '2. Mai 2026',
+    readTime: '5 min',
+    content: [
+      { type: 'p', text: 'Steckdose defekt, Sicherung fliegt raus, Licht funktioniert nicht mehr. Solche Probleme passieren selten zwischen 9 und 17 Uhr. Sie passieren abends, am Wochenende, vor Feiertagen — genau dann wenn du nicht ans Telefon gehst und kein Büro besetzt ist.' },
+      { type: 'p', text: 'Das Ergebnis: Anfragen gehen verloren, Kunden beauftragen Konkurrenten, und du weißt am nächsten Morgen nicht mal, was du verpasst hast.' },
+
+      { type: 'h2', text: 'Wann Elektriker-Anfragen reinkommen' },
+      { type: 'p', text: 'Daten aus verschiedenen Handwerksbetrieben zeigen: Über 40% der Kundenanfragen kommen außerhalb der regulären Arbeitszeiten. Abends zwischen 18 und 22 Uhr ist die aktivste Zeit — Menschen kommen von der Arbeit nach Hause, bemerken ein Problem und greifen sofort zum Handy.' },
+      { type: 'p', text: 'Wer in diesem Fenster nicht antwortet, verliert einen großen Teil seines potenziellen Umsatzes. Nicht weil die Kunden ungeduldig wären, sondern weil sie schlicht zum nächsten Anbieter wechseln — der sich vielleicht schon einen Bot eingerichtet hat.' },
+
+      { type: 'h2', text: 'Was ein WhatsApp Bot für deinen Elektrikerbetrieb tut' },
+      { type: 'ul', items: [
+        'Sofortige Bestätigung: Deine Nachricht ist angekommen, wir melden uns bald',
+        'Erste Einschätzung: Ist es ein Notfall (Kurzschluss, Gefahr) oder ein normaler Auftrag?',
+        'Bilder anfordern: "Kannst du ein Foto von dem Problem schicken?"',
+        'Einzugsgebiet klären: In welcher Stadt oder welchem Bezirk bist du?',
+        'Preisrahmen kommunizieren: Grobe Orientierung ohne verbindliche Zusage',
+        'Dich bei echten Notfällen sofort benachrichtigen',
+      ]},
+
+      { type: 'h2', text: 'Der Unterschied zwischen Notfall und Normalauftrag' },
+      { type: 'p', text: 'Ein kaputter Lichtschalter kann warten. Ein Hauptsicherungskasten der qualmt nicht. Ein guter WhatsApp Bot erkennt diesen Unterschied — durch Schlüsselwörter in der Nachricht — und reagiert entsprechend.' },
+      { type: 'p', text: 'Bei einem Notfall: Sofortige Weiterleitung an dich, klarer Hinweis dass du dich sofort meldest. Bei einem normalen Auftrag: Freundliche Bestätigung, Terminvorschlag für die nächsten Tage, alle nötigen Infos vorab sammeln.' },
+      { type: 'p', text: 'Das spart dir beim Rückruf wertvolle Zeit — du weißt schon bevor du anrufst, was dich erwartet.' },
+
+      { type: 'h2', text: 'Konkurrenzvorsprung durch schnelle Reaktion' },
+      { type: 'p', text: 'Elektriker sind in vielen Städten rar. Kunden, die abends einen Elektriker suchen, nehmen oft den ersten, der antwortet — nicht zwingend den günstigsten. Wenn du der erste bist der sich meldet (auch wenn es ein Bot ist), hast du einen entscheidenden Vorteil.' },
+      { type: 'p', text: 'Studien zeigen: Die Wahrscheinlichkeit, einen Auftrag zu bekommen, sinkt nach 5 Minuten ohne Antwort um über 80%. Nach einer Stunde ist sie fast null. Ein Bot antwortet in Sekunden.' },
+
+      { type: 'h2', text: 'Einrichtungsaufwand und laufende Kosten' },
+      { type: 'p', text: 'Ein WhatsApp Bot muss nicht komplex sein. Für einen Elektrikerbetrieb reicht oft eine einfache Version: Begrüßung, Notfall-Erkennung, Infos sammeln, weiterleiten. Das ist in wenigen Tagen eingerichtet und danach läuft es.' },
+      { type: 'p', text: 'Die laufenden Kosten liegen weit unter dem Umsatz, den ein einziger zusätzlicher Auftrag pro Woche bringt. Bei typischen Stundensätzen von 80–120€ plus Material rechnet sich der Bot sehr schnell.' },
+
+      { type: 'callout', text: 'Ich richte WhatsApp Bots für Elektrikerbetriebe ein — mit Notfall-Erkennung und automatischer Qualifizierung. Wenn du wissen willst was das für deinen Betrieb bedeutet, meld dich kurz.' },
+    ],
+  },
+
+  // --- Artikel 9 ---
+  {
+    slug: 'whatsapp-bot-barbiere',
+    title: 'WhatsApp Bot für Barbiere: Wartelisten und Buchungen automatisieren',
+    description: 'Barbershops boomen — aber die Verwaltung von Buchungen kostet täglich wertvolle Zeit. Wie ein WhatsApp Bot Wartelisten und Termine für dich managt.',
+    date: '2. Mai 2026',
+    readTime: '5 min',
+    content: [
+      { type: 'p', text: 'Dein Barbershop ist beliebt. Zu beliebt manchmal: Das Telefon klingelt ständig, WhatsApp-Nachrichten stapeln sich, und du verbringst mehr Zeit mit Terminen koordinieren als mit dem eigentlichen Handwerk. Gleichzeitig tauchen Kunden auf, die du nicht erwartet hast, und andere die einen Termin hatten erscheinen nicht.' },
+      { type: 'p', text: 'Das ist das typische Wachstumsproblem moderner Barbershops. Und ein WhatsApp Bot ist eine der einfachsten Lösungen.' },
+
+      { type: 'h2', text: 'Das Besondere an Barbershop-Buchungen' },
+      { type: 'p', text: 'Barbier-Kunden sind oft jünger, digitalaffin und erwarten schnelle Kommunikation. Sie schreiben lieber als dass sie anrufen. Und sie wollen Antworten in Minuten, nicht in Stunden.' },
+      { type: 'p', text: 'Gleichzeitig sind Buchungen in Barbershops oft kurzfristiger als bei normalen Friseuren: Heute anschreiben, morgen einen Termin haben. Das macht eine manuelle Verwaltung stressig — besonders wenn du nebenbei noch schneidest.' },
+
+      { type: 'h2', text: 'Was ein Bot für deinen Barbershop übernimmt' },
+      { type: 'ul', items: [
+        'Buchungsanfragen sofort bestätigen und Wunschtermin abfragen',
+        'Warteliste führen: Wenn kein Termin frei ist, automatisch auf die Warteliste setzen',
+        'Terminerinnerungen senden: 24 Stunden vorher automatisch erinnern',
+        'No-Show reduzieren: Kunden bitten zu bestätigen ob sie kommen',
+        'Preisliste und Leistungen auf Anfrage senden',
+        'Neue Kunden nach ihrer bevorzugten Zeit und ihrem Stil fragen',
+      ]},
+
+      { type: 'h2', text: 'Wartelisten: Aus Verlust wird Umsatz' },
+      { type: 'p', text: 'Wenn du ausgebucht bist und ein Kunde anschreibt, verlierst du ohne Bot diesen Kunden wahrscheinlich. Er sucht einen anderen Barbier. Mit einem Bot passiert folgendes: Er kommt auf die Warteliste, bekommt sofort eine Bestätigung und wird automatisch benachrichtigt wenn ein Platz frei wird — zum Beispiel weil jemand storniert hat.' },
+      { type: 'p', text: 'Das bedeutet: Stornierungen kosten dich nicht mehr Umsatz, weil der Platz sofort wieder gefüllt wird. Der Umsatz bleibt konstant, du musst dich nicht darum kümmern.' },
+
+      { type: 'h2', text: 'No-Shows: Das größte Problem für Barbershops' },
+      { type: 'p', text: 'Kunden die nicht erscheinen kosten Zeit und Geld. Eine automatische Erinnerung 24 oder 48 Stunden vor dem Termin reduziert No-Shows deutlich — in der Praxis um 30–60%.' },
+      { type: 'p', text: 'Noch effektiver: Der Bot bittet den Kunden explizit zu bestätigen. Wer bestätigt, erscheint fast immer. Wer nicht antwortet, kann rechtzeitig ersetzt werden. Du weißt immer vorher wer kommt.' },
+
+      { type: 'h2', text: 'Für Walk-ins und Stammkunden' },
+      { type: 'p', text: 'Nicht jeder Barbier will ein reines Buchungssystem. Viele leben von Walk-ins und Stammkunden. Ein Bot muss das nicht ersetzen — er ergänzt es. Er managt die digitalen Anfragen, während du weiterhin spontane Kunden begrüßen kannst.' },
+      { type: 'p', text: 'Stammkunden können sogar einen eigenen schnellen Buchungspfad bekommen: Einfach "Termin" schreiben und der Bot schlägt automatisch den nächsten freien Slot vor — ohne Fragen, weil der Bot bereits weiß was der Kunde normalerweise bucht.' },
+
+      { type: 'callout', text: 'Ich baue WhatsApp Bots für Barbershops — mit Wartelisten-Funktion, Terminerinnerungen und No-Show-Reduktion. Schreib mir wenn du wissen willst was das für deinen Shop bedeutet.' },
+    ],
+  },
+
+  // --- Artikel 10 ---
+  {
+    slug: 'website-klempner',
+    title: 'Website für Klempner: So wirst du bei Google gefunden wenn jemand "Klempner Notdienst" sucht',
+    description: 'Wer einen Klempner sucht, googelt — und ruft den ersten an der antwortet. Warum eine gute Website für Klempner nicht nur Visitenkarte ist, sondern Auftragsgenerator.',
+    date: '2. Mai 2026',
+    readTime: '5 min',
+    content: [
+      { type: 'p', text: 'Rohrbruch um Mitternacht. Der Hausbesitzer greift zum Handy und googelt "Klempner Notdienst [Stadt]". Was er sieht, entscheidet innerhalb von Sekunden: Wer hat eine professionelle Website, wer hat gute Bewertungen, wer wirkt vertrauenswürdig? Dieser erste Eindruck bestimmt, wen er anruft.' },
+      { type: 'p', text: 'Ohne eigene Website bist du bei dieser Suche unsichtbar. Und unsichtbar bedeutet: kein Auftrag.' },
+
+      { type: 'h2', text: 'Wie Klempner-Kunden suchen' },
+      { type: 'p', text: 'Die meisten Kunden, die einen Klempner brauchen, suchen lokal und mit konkreter Absicht. Sie tippen nicht "Klempner" — sie tippen "Klempner Berlin Mitte", "Notfall Klempner Köln" oder "Rohrreinigung München günstig". Das sind Long-Tail-Keywords mit hoher Kaufabsicht.' },
+      { type: 'p', text: 'Genau für solche Suchanfragen sollte deine Website optimiert sein. Wenn jemand "Klempner Notdienst Hannover" sucht und du auf Seite 1 erscheinst, bekommst du den Anruf — ohne Marketingbudget, ohne Werbeanzeigen.' },
+
+      { type: 'h2', text: 'Was eine Klempner-Website unbedingt braucht' },
+      { type: 'ul', items: [
+        'Klare Angabe deines Einsatzgebiets — welche Städte und Stadtteile du abdeckst',
+        'Notdienst-Hinweis auf der Startseite: Bist du 24/7 erreichbar? Sag es laut',
+        'Deine Telefonnummer groß und gut sichtbar — am besten klickbar für Mobilgeräte',
+        'Leistungsübersicht: Was machst du, was machst du nicht',
+        'Echte Google-Bewertungen eingebunden oder verlinkt',
+        'Reaktionszeit kommunizieren: "Bei Notfällen innerhalb von 60 Minuten vor Ort"',
+      ]},
+
+      { type: 'h2', text: 'Notdienst-SEO: Das lukrativste Keyword-Segment' },
+      { type: 'p', text: 'Kunden die "Notdienst" in ihre Suche eintippen, sind bereit mehr zu zahlen. Sie brauchen sofort Hilfe und verhandeln nicht lange über den Preis. Das macht Notdienst-Keywords besonders wertvoll.' },
+      { type: 'p', text: 'Eine Seite auf deiner Website, die speziell für "Klempner Notdienst [deine Stadt]" optimiert ist, kann dir dauerhaft Notfall-Aufträge bringen. Das sind oft die profitabelsten Aufträge — Anfahrt, Stundensatz, Material — alles ohne große Preisdiskussion.' },
+
+      { type: 'h2', text: 'Google My Business: Dein lokaler Hebel' },
+      { type: 'p', text: 'Vor der Website kommt Google My Business. Dieser kostenlose Eintrag erscheint in der Karte, die Google bei lokalen Suchen anzeigt. Vollständig ausgefüllt mit Fotos, Bewertungen und aktuellen Infos ist er dein erster Sichtbarkeits-Booster.' },
+      { type: 'p', text: 'Aber: Google My Business und Website ergänzen sich. Ein vollständiger Eintrag ohne Website wirkt weniger vertrauenswürdig. Und eine Website ohne Google My Business verpasst den lokalen Map-Pack — die drei Einträge die ganz oben in den lokalen Ergebnissen erscheinen.' },
+
+      { type: 'h2', text: 'Was eine gute Klempner-Website kostet — und was sie bringt' },
+      { type: 'p', text: 'Eine professionelle Website mit lokalem SEO ist eine Investition, keine Ausgabe. Wenn sie dir auch nur zwei zusätzliche Aufträge pro Monat bringt — bei einem durchschnittlichen Auftragswert von 200–500€ — hat sie sich in wenigen Monaten amortisiert. Und dann arbeitet sie weiter für dich, jeden Tag, ohne zusätzliche Kosten.' },
+
+      { type: 'callout', text: 'Ich baue Klempner-Websites die bei Google gefunden werden — mit lokaler SEO, Notdienst-Optimierung und Google My Business Setup. Wenn du wissen willst was das kostet, schreib mir.' },
+    ],
+  },
 ]

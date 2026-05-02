@@ -43,10 +43,12 @@ function renderBlock(block: ContentBlock, i: number) {
           <div className="relative px-7 py-6">
             <p className="text-zinc-200 text-base leading-relaxed mb-5">{block.text}</p>
             <a
-              href="mailto:dnwayne97@gmail.com"
+              href="https://wa.me/5521999791569"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] px-5 py-2.5 rounded-xl transition-colors duration-200 [font-family:var(--font-heading)]"
             >
-              Jetzt melden →
+              Auf WhatsApp schreiben →
             </a>
           </div>
         </div>
