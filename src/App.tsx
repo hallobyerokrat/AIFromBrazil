@@ -636,12 +636,13 @@ export default function App() {
             {
               title: 'Byerokrat',
               img: '/byerokrat.png',
-              tech: 'React · Supabase · Claude API',
+              tech: 'Next.js · Claude API · Tailwind',
               statusColor: 'bg-emerald-400',
               status: t.work.byerokrat.status,
               desc: t.work.byerokrat.desc,
               problem: t.work.byerokrat.problem,
               solution: t.work.byerokrat.solution,
+              disclaimer: t.work.byerokrat.disclaimer,
               href: 'https://byerokrat.de',
             },
           ].map((p, i) => (
@@ -676,6 +677,9 @@ export default function App() {
                 </div>
               </div>
               <p className="relative mt-4 text-[10px] font-mono text-zinc-700">{p.tech}</p>
+              {'disclaimer' in p && p.disclaimer && (
+                <p className="relative mt-3 text-[10px] text-zinc-600 leading-relaxed italic border-t border-zinc-800/60 pt-3">{p.disclaimer}</p>
+              )}
             </motion.a>
           ))}
         </div>

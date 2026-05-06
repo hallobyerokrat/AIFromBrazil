@@ -51,9 +51,10 @@ const de = {
       status: 'In Entwicklung',
     },
     byerokrat: {
-      desc: 'KI-Steuerassistent für deutsche Freelancer — erklärt Behördenbriefe, generiert Rechnungen, trackt Fristen & beantwortet Steuerfragen per Chat. Freemium: kostenlos starten, Pro ab 9,99 €/Monat.',
-      problem: 'Freelancer und Kreative in Deutschland verlieren täglich Zeit mit Steuerformularen, Behördenbriefen und Abgabefristen — oft ohne zu verstehen, was von ihnen gefordert wird.',
-      solution: 'KI-Komplettlösung: Dokumenten-Scanner, KSK-Eignungscheck, Rechnungsgenerator, Fristentracker mit E-Mail-Erinnerung, Betriebsausgaben-Check, EÜR-Assistent und unbegrenzter KI-Chat — alles in einer App.',
+      desc: 'Selbständig werden — endlich einfach erklärt.',
+      problem: 'Du willst dich selbständig machen, aber niemand erklärt dir wie das wirklich funktioniert. Nicht die Schule, nicht die Eltern, nicht das Internet. Überall widersprüchliche Infos, Fachchinesisch und Angst vor dem falschen Schritt.',
+      solution: 'Byerokrat beantwortet die Fragen die du dir kaum zu stellen traust — Gewerbeanmeldung, Krankenversicherung, Steuernummer, erster Auftrag. Klar, direkt, ohne Urteil.',
+      disclaimer: 'Kein Steuerberater, keine Rechtsberatung — Orientierung und Erklärungen für den ersten Schritt.',
       status: 'Live',
     },
     roxi: {
@@ -198,9 +199,10 @@ const en: typeof de = {
       status: 'In development',
     },
     byerokrat: {
-      desc: 'AI tax assistant for German freelancers — explains government letters, generates invoices, tracks deadlines & answers tax questions via chat. Freemium: free to start, Pro from €9.99/month.',
-      problem: 'Freelancers and creatives in Germany waste hours daily on tax forms, government letters, and filing deadlines — often without understanding what is required of them.',
-      solution: 'Complete AI solution: document scanner, KSK eligibility check, invoice generator, deadline tracker with email reminders, expense checker, EÜR assistant, and unlimited AI chat — all in one app.',
+      desc: 'Going self-employed — finally explained clearly.',
+      problem: 'You want to go self-employed, but nobody explains how it actually works. Not school, not your parents, not the internet. Conflicting info everywhere, jargon, and fear of making the wrong move.',
+      solution: 'Byerokrat answers the questions you\'re almost afraid to ask — business registration, health insurance, tax number, first client. Clear, direct, no judgment.',
+      disclaimer: 'Not a tax advisor, not legal advice — guidance and explanations for the first step.',
       status: 'Live',
     },
     roxi: {
@@ -345,9 +347,10 @@ const pt: typeof de = {
       status: 'Em desenvolvimento',
     },
     byerokrat: {
-      desc: 'Assistente fiscal com IA para freelancers alemães — explica cartas do governo, gera faturas, rastreia prazos e responde perguntas por chat. Freemium: gratuito para começar, Pro a partir de €9,99/mês.',
-      problem: 'Freelancers e criativos na Alemanha perdem horas diárias com formulários fiscais, cartas do governo e prazos — muitas vezes sem entender o que é exigido.',
-      solution: 'Solução completa: scanner de documentos, verificação de elegibilidade KSK, gerador de faturas, rastreador de prazos com lembretes por e-mail, verificador de despesas, assistente EÜR e chat de IA ilimitado — tudo em um app.',
+      desc: 'Ser autônomo — finalmente explicado de forma simples.',
+      problem: 'Você quer trabalhar por conta própria, mas ninguém explica como realmente funciona. Não a escola, não os pais, não a internet. Informações contraditórias, jargão e medo de dar o passo errado.',
+      solution: 'Byerokrat responde as perguntas que você quase tem medo de fazer — registro de empresa, plano de saúde, número fiscal, primeiro cliente. Claro, direto, sem julgamento.',
+      disclaimer: 'Não é consultor fiscal, não é assessoria jurídica — orientação e explicações para o primeiro passo.',
       status: 'Ao vivo',
     },
     roxi: {
