@@ -249,7 +249,6 @@ export default function App() {
             { label: t.nav.about,    href: '#about'    },
             { label: t.nav.work,     href: '#work'     },
             { label: t.nav.services, href: '#services' },
-            { label: t.nav.contact,  href: '#contact'  },
           ] as const).map(({ label, href }) => (
             <a
               key={href}
@@ -259,6 +258,20 @@ export default function App() {
               {label}
             </a>
           ))}
+
+          <Link
+            to="/katalog"
+            className="text-xs sm:text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200"
+          >
+            {t.nav.katalog}
+          </Link>
+
+          <a
+            href="#contact"
+            className="text-xs sm:text-sm text-zinc-400 hover:text-white hover:bg-zinc-800/80 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 transition-colors duration-200"
+          >
+            {t.nav.contact}
+          </a>
 
           <div aria-hidden="true" className="w-px h-5 bg-zinc-800 mx-1 hidden sm:block" />
 
